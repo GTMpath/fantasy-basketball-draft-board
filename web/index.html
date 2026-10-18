@@ -476,17 +476,19 @@ const expPick = p => p.yahoo_adp && p.yahoo_rank ? (p.yahoo_adp + p.yahoo_rank) 
 const gauss = () => { let u = 0; for (let i = 0; i < 4; i++) u += Math.random(); return (u - 2) * 1.73; };
 let SLOTRES = null;
 function runSlotSims(n) {
-  const keep = S.picks, res = {slot: S.slot, n, rounds: {}, cats: Object.fromEntries(CATS.map(c => [c[0], 0]))};
+  // starts from the picks already on the board, so mid-draft it answers "who will be there at each of my remaining picks"
+  const keep = S.picks, res = {slot: S.slot, n, from: keep.length, rounds: {}, cats: Object.fromEntries(CATS.map(c => [c[0], 0]))};
   for (let i = 0; i < n; i++) {
-    S.picks = [];
-    const taken = new Set(), noise = Object.fromEntries(P.map(p => { const e = expPick(p); return [p.id, e + gauss() * (1.5 + .13 * e)]; }));
+    S.picks = keep.slice(); _avgCache.k = null;
+    const taken = new Set(S.picks.map(x => x.id)), noise = Object.fromEntries(P.map(p => { const e = expPick(p); return [p.id, e + gauss() * (1.5 + .13 * e)]; }));
     const order = [...P].sort((a, b) => noise[a.id] - noise[b.id]);
     while (onClock()) {
       const t = onClock(); let pick;
       if (t === S.slot) {
         const r = roster(S.slot).length + 1, avail = P.filter(p => !taken.has(p.id) && p.flag !== "red");
         const ranked = avail.map(p => [fit(p), p]).sort((a, b) => b[0] - a[0]);
-        const R = res.rounds[r] = res.rounds[r] || {pick: S.picks.length + 1, took: {}, top: {}};
+        const R = res.rounds[r] = res.rounds[r] || {pick: S.picks.length + 1, took: {}, top: {}, av: {}};
+        avail.forEach(p => R.av[p.id] = (R.av[p.id] || 0) + 1);
         pick = ranked[0][1]; R.took[pick.id] = (R.took[pick.id] || 0) + 1;
         ranked.slice(0, 5).forEach(([, p]) => R.top[p.id] = (R.top[p.id] || 0) + 1);
       } else pick = order.find(p => !taken.has(p.id));
@@ -525,13 +527,15 @@ function renderMyPlan() {
 }
 function renderSlot() {
   const el = $("slotplan"), R = SLOTRES && SLOTRES.slot === S.slot ? SLOTRES : null;
-  let h = `<div class="prow"><b>Draft slot ${S.slot} of ${S.teams}</b><button class="primary" data-slotrun="150">Simulate 150 drafts from this slot</button><span class="note">Change "My pick" in the top bar when you learn your slot, then run this again. Other teams draft near Yahoo ADP and Yahoo rank with realistic noise, and you take the board's top Fit pick each round${S.punts.length ? ", punting " + S.punts.map(c => CN[c]).join(", ") : ""}.</span></div>`;
+  let h = `<div class="prow"><b>Draft slot ${S.slot} of ${S.teams}</b><button class="primary" data-slotrun="150">${S.picks.length ? "Simulate 150 drafts from here" : "Simulate 150 drafts from this slot"}</button><span class="note">Change "My pick" in the top bar when you learn your slot, then run this again. Other teams draft near Yahoo ADP and Yahoo rank with realistic noise, and you take the board's top Fit pick each round${S.punts.length ? ", punting " + S.punts.map(c => CN[c]).join(", ") : ""}.</span></div>`;
   if (!R) { el.innerHTML = h + `<div class="note">No simulation run for slot ${S.slot} yet.</div>`; return; }
+  if (R.from !== S.picks.length) h += `<div class="note" style="color:var(--accent)">These results were simulated after pick ${R.from}; the board is now at pick ${S.picks.length}. Run it again for an update.</div>`;
+  else if (R.from) h += `<div class="note">Simulated from your actual draft so far (${R.from} picks made). Still there = share of drafts where he was available at that pick; Best pick = share where he was the board's top Fit.</div>`;
   h += `<div class="card"><h2>Average category rank across ${R.n} simulated drafts <span class="sub">1 is best of ${S.teams}</span></h2><div class="prow">${CATS.map(([c, l]) => { const v = R.cats[c] / R.n; return `<span class="chip" style="border-color:${v <= 4.5 ? "var(--me)" : v >= 8 ? "var(--red)" : "var(--line)"}">${l} <b>${v.toFixed(1)}</b></span>`; }).join("")}</div></div>`;
   h += `<div class="pgrid" style="grid-template-columns:1fr 1fr">` + Object.entries(R.rounds).map(([r, x]) => {
     const rows = Object.entries(x.top).sort((a, b) => b[1] - a[1]).slice(0, 6);
-    return `<div class="card"><h2>Round ${r} <b>pick ${x.pick}</b></h2><table class="mini"><thead><tr><th class="l">Player</th><th>ADP</th><th>GP</th><th title="Share of drafts where he was one of your five best options at this pick">In your top 5</th><th title="Share of drafts where he was the single best pick">Best pick</th></tr></thead><tbody>
-      ${rows.map(([id, c]) => { const p = byId[id]; return `<tr><td class="l"><span class="pname" data-open="${esc(id)}">${esc(p.name)}</span><span class="sub">${p.pos.join("/")}</span>${flagHtml(p)}${tagHtml(p)}</td><td class="num">${p.yahoo_adp ?? "-"}</td><td class="num">${p.gp}</td><td class="num">${Math.round(100 * c / R.n)}%</td><td class="num">${Math.round(100 * (x.took[id] || 0) / R.n)}%</td></tr>`; }).join("")}</tbody></table></div>`; }).join("") + `</div>`;
+    return `<div class="card"><h2>Round ${r} <b>pick ${x.pick}</b></h2><table class="mini"><thead><tr><th class="l">Player</th><th>ADP</th><th>GP</th><th title="Share of drafts where he was still available at this pick">Still there</th><th title="Share of drafts where he was one of your five best options at this pick">In your top 5</th><th title="Share of drafts where he was the single best pick">Best pick</th></tr></thead><tbody>
+      ${rows.map(([id, c]) => { const p = byId[id]; return `<tr><td class="l"><span class="pname" data-open="${esc(id)}">${esc(p.name)}</span><span class="sub">${p.pos.join("/")}</span>${flagHtml(p)}${tagHtml(p)}</td><td class="num">${p.yahoo_adp ?? "-"}</td><td class="num">${p.gp}</td><td class="num">${Math.round(100 * (x.av[id] || 0) / R.n)}%</td><td class="num">${Math.round(100 * c / R.n)}%</td><td class="num">${Math.round(100 * (x.took[id] || 0) / R.n)}%</td></tr>`; }).join("")}</tbody></table></div>`; }).join("") + `</div>`;
   el.innerHTML = h;
 }
 
