@@ -182,7 +182,7 @@ let _avgCache = {k: null, v: null};
 function myAvgZ() {
   // my per-player average in each category, measured against what the other teams have drafted so far.
   // Opponents drafting by ADP load up on scorers, so "average" has to mean their average, not a neutral zero.
-  const key = S.picks.length + ":" + S.slot;
+  const key = S.slot + ":" + S.picks.map(x => x.id).join(",");
   if (_avgCache.k === key) return _avgCache.v;
   const mine = roster(S.slot), ids = new Set(mine.map(p => p.id)), others = S.picks.filter(x => !ids.has(x.id)).map(x => byId[x.id]), out = {};
   CATS.forEach(([c]) => {
@@ -478,6 +478,7 @@ let SLOTRES = null;
 function runSlotSims(n) {
   // starts from the picks already on the board, so mid-draft it answers "who will be there at each of my remaining picks"
   const keep = S.picks, res = {slot: S.slot, n, from: keep.length, rounds: {}, cats: Object.fromEntries(CATS.map(c => [c[0], 0]))};
+  try {
   for (let i = 0; i < n; i++) {
     S.picks = keep.slice(); _avgCache.k = null;
     const taken = new Set(S.picks.map(x => x.id)), noise = Object.fromEntries(P.map(p => { const e = expPick(p); return [p.id, e + gauss() * (1.5 + .13 * e)]; }));
@@ -497,10 +498,11 @@ function runSlotSims(n) {
     const lines = {}; for (let t = 1; t <= S.teams; t++) lines[t] = teamLine(roster(t));
     CATS.forEach(([c]) => res.cats[c] += Object.values(lines).filter(x => x[c] > lines[S.slot][c]).length + 1);
   }
-  S.picks = keep; SLOTRES = res;
+  } finally { S.picks = keep; _avgCache.k = null; }
+  SLOTRES = res;
 }
 // ---------- My plan: preference lists for rounds 1 to 5 that follow your roster ----------
-const isBig = p => p.pos.includes("C") && !p.pos.includes("SF") && !p.pos.includes("SG");
+const isBig = p => p.pos.includes("C") && !p.pos.includes("SF") && !p.pos.includes("SG") && (p.pos.length === 1 || p.z.reb + p.z.blk >= 1);
 function renderMyPlan() {
   const el = $("myplan"), M = window.MYPLAN;
   if (!M) { el.innerHTML = '<div class="note">No plan loaded. It lives in web/plan.js.</div>'; return; }
@@ -510,7 +512,7 @@ function renderMyPlan() {
   const card = (R, now) => {
     const got = myPicks[R.round - 1];
     const before = myPicks.slice(0, R.round - 1).map(([x]) => byId[x.id]), bigs = Math.min(2, before.filter(isBig).length);
-    const list = (R.lists.any || R.lists[bigs] || []).slice(0, 6);
+    const list = R.lists.any || R.lists[bigs] || [];
     let first = true;
     const rows = list.map(([nm, why]) => {
       const p = byNm[nm], gone = !p || taken.has(p.id), you = got && p && got[0].id === p.id;
@@ -569,7 +571,7 @@ $("cfgFmt").addEventListener("change", e => { S.fmt = +e.target.value; S.punts =
 [["Teams","teams"],["Slot","slot"],["Rounds","rounds"]].forEach(([i, k]) => $("cfg" + i).addEventListener("change", e => { const v = parseInt(e.target.value, 10); if (v > 0) { if (S.picks.length && k !== "slot" && !confirmReset()) return render(); S[k] = v; if (S.slot > S.teams) S.slot = S.teams; save(); render(); } }));
 function confirmReset() { if (!window.confirm("Changing this clears the picks made so far. Continue?")) return false; S.picks = []; return true; }
 $("undoBtn").onclick = () => { S.picks.pop(); save(); render(); };
-$("resetBtn").onclick = () => { if (window.confirm("Clear every pick and start over?")) { S.picks = []; save(); render(); } };
+$("resetBtn").onclick = () => { if (window.confirm("Clear every pick and start over?")) { S.picks = []; if (window.SYNC) S.syncV = window.SYNC.v; save(); render(); } };
 $("simBtn").onclick = simToMe;
 document.addEventListener("keydown", e => { if (e.key === "Escape") $("drawer").style.display = "none"; if (e.key === "/" && document.activeElement !== $("q")) { e.preventDefault(); $("q").focus(); } });
 
@@ -584,16 +586,23 @@ render();
 // The board checks it every 3 seconds and, when v changes, replaces the pick log with that list. Manual clicks still work in between.
 const normName = x => x.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z]/g, "");
 const byName = Object.fromEntries(P.map(p => [normName(p.name), p.id]));
-let syncV = null;
+// The last applied version lives in S (localStorage), so a reload or a Reset never re-applies an old file.
+const syncWarn = (msg, bad) => { const el = $("syncNote"); el.textContent = msg; el.style.color = bad ? "#ff6b6b" : ""; el.style.fontWeight = bad ? "700" : ""; };
 function applySync() {
-  const Y = window.SYNC; if (!Y || Y.v === syncV) return;
+  const Y = window.SYNC;
+  if (!Y || !Array.isArray(Y.picks) || typeof Y.v !== "number" || Y.v <= (S.syncV || 0)) return;
+  S.syncV = Y.v; save();
   const ids = [], miss = [];
-  for (const n of Y.picks) { const id = byName[normName(n)]; if (!id) { miss.push(n); break; } ids.push(id); }
-  syncV = Y.v;
-  if (new Set(ids).size !== ids.length) { $("syncNote").textContent = "Sync skipped: a player appears twice"; return; }
+  for (const n of Y.picks) { const id = typeof n === "string" && byName[normName(n)]; if (id) ids.push(id); else miss.push(String(n)); }
+  if (miss.length) { syncWarn(`SYNC NOT APPLIED: unknown name "${miss[0]}". Board unchanged; send another screenshot.`, true); return; }
+  if (new Set(ids).size !== ids.length) { syncWarn("SYNC NOT APPLIED: a player appears twice. Board unchanged.", true); return; }
+  // a sync that is only behind your own clicks (same picks, fewer of them) keeps your clicks
+  const cur = S.picks.map(x => x.id);
+  if (ids.length < cur.length && ids.every((id, i) => id === cur[i])) { syncWarn(`Sync was ${cur.length - ids.length} picks behind your clicks; kept your clicks.`, false); return; }
+  const differs = ids.length < cur.length;
   S.picks = ids.map((id, i) => ({id, team: teamAt(i)}));
-  save(); render();
-  $("syncNote").textContent = `Synced ${ids.length} picks at ${new Date().toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}` + (miss.length ? `; stopped at unknown name "${miss[0]}"` : "");
+  _avgCache.k = null; save(); render();
+  syncWarn(`Synced ${ids.length} picks at ${new Date().toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}` + (differs ? " (corrected your clicks)" : ""), differs);
 }
 function pollSync() {
   const old = document.getElementById("syncScript"); if (old) old.remove();
