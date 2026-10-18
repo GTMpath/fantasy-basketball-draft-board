@@ -122,7 +122,7 @@ a{color:var(--blue)}
 </header>
 <main>
   <div id="left">
-    <div id="tabs"><button data-view="myplan">My plan</button><button data-view="board">Draft board</button><button data-view="planner">Build planner</button><button data-view="scout">Sleepers and rookies</button><button data-view="slot">Slot plan</button></div>
+    <div id="tabs"><button data-view="myplan">My plan</button><button data-view="board">Draft board</button><button data-view="slot">Slot plan</button><button data-view="scout">Sleepers and rookies</button><button data-view="planner">Category explorer</button></div>
     <div id="myplan" style="flex:1;overflow:auto;padding:14px 18px;display:none"></div>
     <div id="planner"></div>
     <div id="scout"></div>
@@ -504,24 +504,29 @@ const isBig = p => p.pos.includes("C") && !p.pos.includes("SF") && !p.pos.includ
 function renderMyPlan() {
   const el = $("myplan"), M = window.MYPLAN;
   if (!M) { el.innerHTML = '<div class="note">No plan loaded. It lives in web/plan.js.</div>'; return; }
-  const taken = takenSet(), mine = roster(S.slot), byNm = Object.fromEntries(P.map(p => [p.name, p]));
+  const taken = takenSet(), byNm = Object.fromEntries(P.map(p => [p.name, p]));
   const myPicks = S.picks.map((x, i) => [x, i]).filter(([x]) => x.team === S.slot);
-  let h = `<div class="prow"><b>My plan, all 13 rounds</b><span class="note">Each round shows the list for your roster so far (how many centers you have). Crossed out = drafted. The highlighted name is the first one still there. When two are close, check Fit on the Draft board.</span></div>`;
-  M.forEach(R => {
+  const nowRound = myPicks.length + 1;
+  const card = (R, now) => {
     const got = myPicks[R.round - 1];
-    // centers on the roster before this round's pick
     const before = myPicks.slice(0, R.round - 1).map(([x]) => byId[x.id]), bigs = Math.min(2, before.filter(isBig).length);
-    const list = R.lists.any || R.lists[bigs] || [];
+    const list = (R.lists.any || R.lists[bigs] || []).slice(0, 6);
     let first = true;
     const rows = list.map(([nm, why]) => {
       const p = byNm[nm], gone = !p || taken.has(p.id), you = got && p && got[0].id === p.id;
-      const hl = !got && !gone && first; if (hl) first = false;
-      return `<tr style="${hl ? "background:rgba(76,195,138,.18)" : ""}"><td class="l" style="${gone && !you ? "text-decoration:line-through;opacity:.45" : ""}">${hl ? "<b>&#9654; </b>" : ""}${p ? `<span class="pname" data-open="${esc(p.id)}">${esc(nm)}</span>` : esc(nm)}${p ? flagHtml(p) : ""}${you ? ' <span class="tag sleeper">you took him</span>' : ""}</td><td class="num">${p?.yahoo_adp ?? "-"}</td><td class="num">${p && !gone ? fit(p).toFixed(1) : ""}</td><td class="l sub">${esc(why)}</td></tr>`;
+      const hl = now && !gone && first; if (hl) first = false;
+      return `<tr style="${hl ? "background:rgba(76,195,138,.22)" : ""}"><td class="l" style="${gone && !you ? "text-decoration:line-through;opacity:.45" : ""}">${hl ? "<b>&#9654; </b>" : ""}${p ? `<span class="pname" data-open="${esc(p.id)}">${esc(nm)}</span>` : esc(nm)}${p ? flagHtml(p) : ""}${you ? ' <span class="tag sleeper">you took him</span>' : ""}</td><td class="num">${p?.yahoo_adp ?? "-"}</td><td class="l sub">${esc(why)}</td></tr>`;
     }).join("");
-    const label = R.lists.any ? "" : ` · you have ${bigs === 2 ? "2+" : bigs} center${bigs === 1 ? "" : "s"}`;
-    const pickTxt = got ? `you took <b>${esc(byId[got[0].id].name)}</b>` + (list.some(([nm]) => nm === byId[got[0].id].name) ? "" : " (off the list)") : "";
-    h += `<div class="card"><h2>Round ${R.round} <b>pick ${R.pick}</b> <span class="sub">${label}${pickTxt ? " · " + pickTxt : ""}</span></h2><table class="mini"><thead><tr><th class="l">In order</th><th>ADP</th><th>Fit now</th><th class="l">Why</th></tr></thead><tbody>${rows}</tbody></table></div>`;
-  });
+    const label = R.lists.any ? "" : ` · list for ${bigs === 2 ? "2+" : bigs} center${bigs === 1 ? "" : "s"} on your team`;
+    const allGone = now && first;
+    return `<div class="card" style="${now ? "border:2px solid var(--me)" : ""}"><h2>${now ? "NOW · " : ""}Round ${R.round} <b>pick ${R.pick}</b> <span class="sub">${label}</span></h2><table class="mini"><thead><tr><th class="l">In order</th><th>ADP</th><th class="l">Why</th></tr></thead><tbody>${rows}</tbody></table>${allGone ? '<div class="note" style="color:var(--accent)">Everyone on this list is gone: take the top Fit on the Draft board.</div>' : ""}</div>`;
+  };
+  const team = myPicks.map(([x], i) => `<span class="chip">R${i + 1} ${esc(byId[x.id].name)}</span>`).join(" ") || '<span class="sub">no picks yet</span>';
+  let h = `<div class="prow"><b>Your team</b> ${team}</div>`;
+  const cur = M.find(R => R.round === nowRound);
+  if (cur) h += card(cur, true);
+  else if (nowRound > M.length) h += '<div class="card"><h2>Draft complete</h2></div>';
+  M.filter(R => R.round > nowRound).forEach(R => h += card(R, false));
   h += `<div class="card"><h2>Rules for every round</h2><div class="note">${esc(window.MYPLAN_LATER || "")}</div></div>`;
   el.innerHTML = h;
 }
