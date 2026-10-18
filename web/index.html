@@ -209,7 +209,8 @@ function openStarters() {
   const a = assignSlots(roster(S.slot));
   return a.filter(([s, p]) => !p && s !== "BN").map(([s]) => s);
 }
-const TUNE = {k: .9, mx: 1.8, mn: .3}; const needW = (avgZ, n) => n < 1 ? 1 : Math.max(TUNE.mn, Math.min(TUNE.mx, 1 - (n < 3 ? TUNE.k * .55 : TUNE.k) * avgZ));
+const TUNE = {k: .9, mx: 1.8, mn: .3, wait: .8};
+const normCdf = x => { const t = 1 / (1 + .2316419 * Math.abs(x)), d = .3989423 * Math.exp(-x * x / 2), q = d * t * (.3193815 + t * (-.3565638 + t * (1.781478 + t * (-1.821256 + t * 1.330274)))); return x > 0 ? 1 - q : q; }; const needW = (avgZ, n) => n < 1 ? 1 : Math.max(TUNE.mn, Math.min(TUNE.mx, 1 - (n < 3 ? TUNE.k * .55 : TUNE.k) * avgZ));
 function fit(p) {
   const mine = roster(S.slot), avg = myAvgZ(), n = mine.length, round = Math.floor(S.picks.length / S.teams) + 1;
   // need weights: a category you already lead by a mile is worth little more, one you are losing is worth a lot
@@ -231,8 +232,14 @@ function fit(p) {
   if (open.length && left <= open.length + 3) v += open.some(s => p.pos.some(x => FITS[s].includes(x))) ? .8 : -.8;
   // he should still be on the board at my following pick, so someone scarcer goes first; more so for each later pick he would last to
   // (without the extra steps a punt build took Reed Sheppard, ADP 120, at pick 20)
+  // The first step is a probability: a player who is usually still there at my next pick (Duren at 20 is about 80%) gives
+  // way to one who will be gone, so round 2 takes the best player and the center comes back at 29.
   let nx = myNext(S.picks.length), lasts = 0;
-  for (let k = 0; k < 3 && nx !== null; k++) { nx = myNext(nx + 1); if (nx !== null && p.yahoo_adp && p.yahoo_adp > nx + 8) lasts++; else break; }
+  for (let k = 0; k < 3 && nx !== null; k++) {
+    nx = myNext(nx + 1); if (nx === null || !p.yahoo_adp) break;
+    if (k === 0) { const e = expPick(p), sd = 1.5 + .13 * e; v -= TUNE.wait * normCdf((e - (nx + 1)) / sd); continue; }
+    if (p.yahoo_adp > nx + 8) lasts++; else break;
+  }
   v -= .6 * lasts;
   return v;
 }
@@ -429,7 +436,7 @@ function renderPlanner() {
     const needC = Math.max(0, 2 - chain.filter(p => p.pos.includes("C")).length);
     // from round 3 a build with no center has to start paying for one: the league starts two
     const sc = p => planScore(p, cats, chain) + (r >= 3 && needC && p.pos.includes("C") ? .5 * needC : 0) + Math.min(.6, .3 * (named[p.id] || 0));
-    const list = avail.filter(p => !inChain.has(p.id) && (p.yahoo_adp ?? 200) >= pick - 4).map(p => [sc(p), p]).sort((a, b) => b[0] - a[0]).slice(0, 7);
+    const list = avail.filter(p => !inChain.has(p.id) && (p.yahoo_adp ?? 200) >= pick - 4 && ((p.yahoo_adp ?? 200) <= pick + 15 || (p.yahoo_adp == null && pick > 110))).map(p => [sc(p), p]).sort((a, b) => b[0] - a[0]).slice(0, 7);
     cards += `<div class="card"><h2>Round ${r} <b>pick ${pick}</b> <span class="sub">${chain.length > core.length ? "after " + chain.slice(core.length).map(p => esc(p.name)).join(", ") : "players usually still on the board here"}${r >= 3 && needC ? " · still need " + needC + " center" + (needC > 1 ? "s" : "") : ""}</span></h2><table class="mini"><thead><tr><th class="l">Player</th><th>ADP</th><th>GP</th><th>Fit</th>${cats.map(c => `<th>${CN[c]}</th>`).join("")}</tr></thead><tbody>
       ${list.map(([v, p]) => `<tr><td class="l"><span class="pname" data-open="${esc(p.id)}">${esc(p.name)}</span><span class="sub">${p.pos.join("/")}</span>${flagHtml(p)}${named[p.id] ? `<span class="tag sleeper" title="Named as a partner for your anchor by ${named[p.id]} analyst${named[p.id] > 1 ? "s" : ""}">analyst pick${named[p.id] > 1 ? " " + named[p.id] : ""}</span>` : ""}${tagHtml(p)}</td><td class="num" ${(p.yahoo_adp ?? 0) > after + 4 ? 'style="color:var(--blue)" title="Usually lasts to your following pick"' : ""}>${p.yahoo_adp ?? "-"}</td><td class="num ${p.gp < 60 ? "bad" : ""}">${p.gp}</td><td class="num">${v.toFixed(1)}</td>${cats.map(c => `<td class="num ${cls(p.z[c])}">${fmt[c](p)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
     const top = list.find(([, p]) => p.flag !== "orange") || list[0];
