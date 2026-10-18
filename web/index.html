@@ -118,6 +118,7 @@ a{color:var(--blue)}
   <button id="simBtn" title="Auto-draft the other teams by Yahoo ADP until it is your turn">Sim to my pick</button>
   <button id="undoBtn">Undo</button>
   <button id="resetBtn">Reset</button>
+  <span id="syncNote" class="sub"></span>
 </header>
 <main>
   <div id="left">
@@ -532,6 +533,29 @@ new URLSearchParams(location.hash.slice(1)).forEach((v, k) => { if (k === "view"
 $("plan").innerHTML = (window.PLAN || []).map(x => `<li>${x}</li>`).join("");
 $("meta").innerHTML = `${D.meta.n} players. Built ${D.meta.built}. Projections: average of ESPN and Yahoo (Rotowire) 2026-27, plus Hashtag Basketball for the top 30. ADP and positions: Yahoo via Hashtag Basketball. ${D.meta.injuries} researched injury entries.` + (D.meta.sources.length ? "<br>Articles read: " + D.meta.sources.map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.site || s.title)}</a>`).join(", ") : "");
 render();
+
+// ---------- Screenshot sync ----------
+// Claude writes web/sync.js ({v, picks: [names in overall pick order]}) from Yahoo screenshots during the draft.
+// The board checks it every 3 seconds and, when v changes, replaces the pick log with that list. Manual clicks still work in between.
+const normName = x => x.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z]/g, "");
+const byName = Object.fromEntries(P.map(p => [normName(p.name), p.id]));
+let syncV = null;
+function applySync() {
+  const Y = window.SYNC; if (!Y || Y.v === syncV) return;
+  const ids = [], miss = [];
+  for (const n of Y.picks) { const id = byName[normName(n)]; if (!id) { miss.push(n); break; } ids.push(id); }
+  syncV = Y.v;
+  if (new Set(ids).size !== ids.length) { $("syncNote").textContent = "Sync skipped: a player appears twice"; return; }
+  S.picks = ids.map((id, i) => ({id, team: teamAt(i)}));
+  save(); render();
+  $("syncNote").textContent = `Synced ${ids.length} picks at ${new Date().toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"})}` + (miss.length ? `; stopped at unknown name "${miss[0]}"` : "");
+}
+function pollSync() {
+  const old = document.getElementById("syncScript"); if (old) old.remove();
+  const el = document.createElement("script"); el.id = "syncScript"; el.src = "sync.js?t=" + Date.now();
+  el.onload = applySync; el.onerror = () => {}; document.body.appendChild(el);
+}
+if (location.protocol === "file:") { pollSync(); setInterval(pollSync, 3000); }
 </script>
 </body>
 </html>
