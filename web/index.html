@@ -122,7 +122,7 @@ a{color:var(--blue)}
       <span id="posChips"></span>
       <label><input type="checkbox" id="hideTaken" checked> Hide drafted</label>
       <label><input type="checkbox" id="hideRisk"> Hide red and orange flags</label>
-      <span class="sub">Click a category header to punt it. Click any other header to sort.</span>
+      <span class="sub"><b>Fit</b> is who to pick: it counts missed games and injury risk. <b>Value/game</b> and <b>#</b> are per game only. Click a category header to punt it; click any other header to sort.</span>
     </div>
     <div id="tablewrap"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
   </div>
@@ -254,6 +254,12 @@ const peakHtml = p => p.peak && p.jump_kind ? `<span class="tag bust" title="Age
 const bumpHtml = p => p.min_bump ? `<span class="tag bust" title="Projected for ${p.min_bump} more minutes than his 50+ game 2025-26. In the last two seasons, unconfirmed bumps like this fell short of projection more often. Fit −0.3.">+${p.min_bump} min?</span>` : "";
 const tagHtml = p => peakHtml(p) + bumpHtml(p) + ["sleeper", "breakout", "bust", "rookie"].filter(k => tagCount(p, k) >= (k === "rookie" ? 1 : 3)).map(k => `<span class="tag ${k}" title="${k === "rookie" ? "2026 rookie" : tagCount(p, k) + " sources"}">${k}${k === "rookie" ? "" : " " + tagCount(p, k)}</span>`).join("");
 
+const COLTIP = {
+  rank: "Rank by per-game 9-cat value. Ignores missed games and injury risk.",
+  fit: "Who to pick: per-game value adjusted for projected games, injury flags, age, your roster's category needs and whether he lasts to your next pick.",
+  value: "Per-game 9-cat value only. A player who misses half the season can still rank high here (Embiid). Use Fit to decide.",
+  gp: "Projected games this season, after injury history and news."
+};
 function render() {
   document.querySelectorAll("#tabs button").forEach(b => b.classList.toggle("on", b.dataset.view === S.view));
   $("filters").style.display = $("tablewrap").style.display = S.view === "board" ? "" : "none";
@@ -274,8 +280,8 @@ function render() {
     c.innerHTML = `${me ? "YOUR PICK" : "Team " + t + " is picking"} · Round ${rd}, pick ${pk} (overall ${n + 1})<small>${me ? (after !== null ? `Your next pick after this is overall ${after + 1}, which is ${after - n - 1} picks away.` : "This is your last pick.") : (next !== null ? `You pick in ${next - n} (overall ${next + 1}). Click whoever each team takes.` : "")}</small>`;
   }
   // header
-  const cols = [["rank","#"],["name","Player","l"],["yahoo_adp","ADP"],["yahoo_rank","Y rank"],["fit","Fit"],["value","Value"],["age","Age"],["last_gp","GP 25-26"],["gp","Proj GP"],["po","PO"]];
-  $("thead").innerHTML = "<tr>" + cols.map(([k, l, a]) => `<th class="${a || ""} ${S.sort === k ? "sorted" : ""}" data-sort="${k}">${l}</th>`).join("") +
+  const cols = [["rank","#"],["name","Player","l"],["yahoo_adp","ADP"],["yahoo_rank","Y rank"],["fit","Fit"],["value","Value/game"],["age","Age"],["last_gp","GP 25-26"],["gp","Proj GP"],["po","PO"]];
+  $("thead").innerHTML = "<tr>" + cols.map(([k, l, a]) => `<th class="${a || ""} ${S.sort === k ? "sorted" : ""}" data-sort="${k}" title="${COLTIP[k] || ""}">${l}</th>`).join("") +
     CATS.map(([k, l]) => `<th class="${isOff(k) ? "punt" : ""}" data-punt="${k}" title="Click to punt ${l}">${l}</th>`).join("") + "<th></th></tr>";
   // rows
   const q = $("q").value.trim().toLowerCase();
@@ -441,7 +447,7 @@ function renderScout() {
   (D.meta.offboard || []).filter(o => o.kind === k).forEach(o => { let r = rows.find(x => x.off && x.name === o.name); if (!r) rows.push(r = {off: true, name: o.name, team: o.team, adp: o.yahoo_adp, ts: [], n: 0}); r.ts.push({text: o.text, sources: o.sources}); r.n = new Set(r.ts.flatMap(t => t.sources || [])).size; });
   rows.sort((a, b) => b.n - a.n || ((a.p?.yahoo_adp ?? a.adp ?? 999) - (b.p?.yahoo_adp ?? b.adp ?? 999)));
   $("scout").innerHTML = `<div class="prow">${kinds.map(([v, l]) => `<button class="chip ${k === v ? "on" : ""}" data-scout="${v}">${l}</button>`).join("")}<span class="note">Ranked by how many separate articles, videos and mock drafts named the player. ${D.meta.sources.length} sources read${D.meta.mocks?.length ? ", " + D.meta.mocks.length + " expert mock drafts" : ""}.</span></div>
-    <table><thead><tr><th class="l">Player</th><th>Sources</th><th>Yahoo ADP</th><th>Mock avg</th><th>GP</th><th>Value rank</th><th class="l">What they say</th><th></th></tr></thead><tbody>
+    <table><thead><tr><th class="l">Player</th><th>Sources</th><th>Yahoo ADP</th><th>Mock avg</th><th>GP</th><th>Value/game rank</th><th class="l">What they say</th><th></th></tr></thead><tbody>
     ${rows.map(r => r.off ? `<tr><td class="l"><b>${esc(r.name)}</b><span class="sub">${esc(r.team || "")} · no projection yet</span></td><td class="num">${r.n}</td><td class="num">${r.adp ?? "-"}</td><td></td><td></td><td></td><td class="excerpt">${esc(clip(r.ts.map(t => t.text).join(" "), 340))}</td><td></td></tr>`
       : `<tr class="${taken.has(r.p.id) ? "taken" : ""}"><td class="l"><span class="pname" data-open="${esc(r.p.id)}">${esc(r.p.name)}</span><span class="sub">${r.p.team} · ${r.p.pos.join("/")}</span>${flagHtml(r.p)}</td><td class="num">${r.n}</td><td class="num">${r.p.yahoo_adp ?? "-"}</td><td class="num">${r.p.mock ?? "-"}</td><td class="num ${r.p.gp < 60 ? "bad" : ""}">${r.p.gp}</td><td class="num">${r.p.rank}</td><td class="excerpt">${esc(clip(r.ts.map(t => t.text).join(" "), 340))}</td><td>${taken.has(r.p.id) ? "" : `<button data-draft="${esc(r.p.id)}">${onClock() === S.slot ? "Draft" : "Taken"}</button>`}</td></tr>`).join("") || `<tr><td class="l" colspan="8">Nothing in this list yet.</td></tr>`}</tbody></table>`;
 }
