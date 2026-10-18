@@ -1,0 +1,603 @@
+[
+{
+"id": "nikola jokic",
+"jump": -0.9
+},
+{
+"id": "victor wembanyama",
+"jump": 0.0
+},
+{
+"id": "shai gilgeous alexander",
+"jump": -1.0
+},
+{
+"id": "luka doncic",
+"jump": 1.4
+},
+{
+"id": "kawhi leonard",
+"jump": 5.4,
+"z_proj": 6.9,
+"z_exp": 6.7,
+"jump_kind": "injury rebound",
+"jump_pen": 0.13,
+"z3": [
+7.5,
+3.6,
+8.9
+]
+},
+{
+"id": "tyrese maxey",
+"jump": 3.2
+},
+{
+"id": "anthony davis",
+"jump": -2.8
+},
+{
+"id": "donovan mitchell",
+"jump": 3.2,
+"z_proj": 5.1,
+"z_exp": 4.7,
+"jump_kind": "bounce-back",
+"jump_pen": 0.31,
+"z3": [
+6.6,
+2.6,
+6.0
+]
+},
+{
+"id": "jayson tatum",
+"jump": -1.4
+},
+{
+"id": "stephen curry",
+"jump": 0.1
+},
+{
+"id": "jamal murray",
+"jump": 1.4
+},
+{
+"id": "jalen johnson",
+"jump": 0.3
+},
+{
+"id": "anthony edwards",
+"jump": 0.5
+},
+{
+"id": "karl anthony towns",
+"jump": -1.7
+},
+{
+"id": "trey murphy",
+"jump": 1.7
+},
+{
+"id": "lauri markkanen",
+"jump": 5.2,
+"z_proj": 3.9,
+"z_exp": 3.1,
+"jump_kind": "injury rebound",
+"jump_pen": 0.51,
+"z3": [
+5.5,
+-0.1,
+5.3
+]
+},
+{
+"id": "cade cunningham",
+"jump": 0.6
+},
+{
+"id": "chet holmgren",
+"jump": 2.3
+},
+{
+"id": "joel embiid",
+"jump": 1.9,
+"z_proj": 4.3,
+"z_exp": 3.2,
+"jump_kind": "injury rebound",
+"jump_pen": 0.76,
+"z3": [
+12.6,
+2.2,
+3.9
+]
+},
+{
+"id": "austin reaves",
+"jump": 0.5
+},
+{
+"id": "scottie barnes",
+"jump": 3.4
+},
+{
+"id": "kevin durant",
+"jump": -0.4
+},
+{
+"id": "lamelo ball",
+"jump": 0.1
+},
+{
+"id": "walker kessler",
+"jump": 3.1
+},
+{
+"id": "jalen duren",
+"jump": 2.4
+},
+{
+"id": "amen thompson",
+"jump": 1.2
+},
+{
+"id": "domantas sabonis",
+"jump": -4.2
+},
+{
+"id": "jalen williams",
+"jump": -3.1
+},
+{
+"id": "dyson daniels",
+"jump": -2.8
+},
+{
+"id": "evan mobley",
+"jump": -2.0
+},
+{
+"id": "michael porter",
+"jump": 2.7
+},
+{
+"id": "derrick white",
+"jump": -0.1
+},
+{
+"id": "tyler herro",
+"jump": -1.5
+},
+{
+"id": "franz wagner",
+"jump": -2.6
+},
+{
+"id": "desmond bane",
+"jump": -0.9
+},
+{
+"id": "jaren jackson",
+"jump": -1.0
+},
+{
+"id": "giannis antetokounmpo",
+"jump": -0.8
+},
+{
+"id": "james harden",
+"jump": -0.5
+},
+{
+"id": "devin booker",
+"jump": -1.9
+},
+{
+"id": "onyeka okongwu",
+"jump": 1.4
+},
+{
+"id": "bam adebayo",
+"jump": 0.3
+},
+{
+"id": "paul george",
+"jump": 1.4
+},
+{
+"id": "zach edey",
+"jump": 4.1
+},
+{
+"id": "brandon miller",
+"jump": 0.5
+},
+{
+"id": "og anunoby",
+"jump": -0.3
+},
+{
+"id": "jalen brunson",
+"jump": -0.5
+},
+{
+"id": "jimmy butler",
+"jump": 0.8
+},
+{
+"id": "josh giddey",
+"jump": -0.6
+},
+{
+"id": "kristaps porzingis",
+"jump": -2.5
+},
+{
+"id": "darius garland",
+"jump": -2.5
+},
+{
+"id": "nickeil alexander walker",
+"jump": 7.1
+},
+{
+"id": "jarrett allen",
+"jump": -0.6
+},
+{
+"id": "trae young",
+"jump": -3.5
+},
+{
+"id": "naz reid",
+"jump": 0.6
+},
+{
+"id": "alex sarr",
+"jump": 3.8
+},
+{
+"id": "alperen sengun",
+"jump": 1.7
+},
+{
+"id": "lebron james",
+"jump": -2.2
+},
+{
+"id": "dejounte murray",
+"jump": -0.4
+},
+{
+"id": "pascal siakam",
+"jump": -2.1
+},
+{
+"id": "mikal bridges",
+"jump": 1.9,
+"z_proj": 0.9,
+"z_exp": 0.9,
+"jump_kind": "career yr",
+"jump_pen": 0.01,
+"z3": [
+-0.4,
+0.4,
+2.4
+]
+},
+{
+"id": "jaden mcdaniels",
+"jump": 0.3
+},
+{
+"id": "immanuel quickley",
+"jump": 1.5
+},
+{
+"id": "deaaron fox",
+"jump": -2.2
+},
+{
+"id": "ivica zubac",
+"jump": -3.3
+},
+{
+"id": "payton pritchard",
+"jump": -0.4
+},
+{
+"id": "ausar thompson",
+"jump": 1.3
+},
+{
+"id": "norman powell",
+"jump": -0.7
+},
+{
+"id": "john collins",
+"jump": -3.0
+},
+{
+"id": "josh hart",
+"jump": -2.7
+},
+{
+"id": "jalen suggs",
+"jump": 0.9
+},
+{
+"id": "andrew wiggins",
+"jump": 1.4
+},
+{
+"id": "keegan murray",
+"jump": 0.2
+},
+{
+"id": "brandon ingram",
+"jump": 0.5
+},
+{
+"id": "deni avdija",
+"jump": 1.4
+},
+{
+"id": "keyonte george",
+"jump": 5.3
+},
+{
+"id": "rudy gobert",
+"jump": -1.5
+},
+{
+"id": "jaylen brown",
+"jump": 1.6,
+"z_proj": 0.3,
+"z_exp": 0.3,
+"jump_kind": "career yr",
+"jump_pen": 0.0,
+"z3": [
+0.8,
+-0.1,
+1.6
+]
+},
+{
+"id": "cason wallace",
+"jump": -0.3
+},
+{
+"id": "zion williamson",
+"jump": -0.6
+},
+{
+"id": "miles bridges",
+"jump": -2.0
+},
+{
+"id": "ayo dosunmu",
+"jump": 1.2
+},
+{
+"id": "myles turner",
+"jump": -2.8
+},
+{
+"id": "isaiah hartenstein",
+"jump": -0.9
+},
+{
+"id": "brandin podziemski",
+"jump": 0.3
+},
+{
+"id": "tobias harris",
+"jump": -1.1
+},
+{
+"id": "jabari smith",
+"jump": 2.4
+},
+{
+"id": "coby white",
+"jump": -4.9
+},
+{
+"id": "grayson allen",
+"jump": 3.0,
+"z_proj": -0.8,
+"z_exp": -0.9,
+"jump_kind": "bounce-back",
+"jump_pen": 0.08,
+"z3": [
+0.8,
+-2.7,
+0.5
+]
+},
+{
+"id": "julius randle",
+"jump": 1.2
+},
+{
+"id": "tari eason",
+"jump": -3.5
+},
+{
+"id": "cameron johnson",
+"jump": -3.6
+},
+{
+"id": "jaime jaquez",
+"jump": 2.7
+},
+{
+"id": "stephon castle",
+"jump": 2.4
+},
+{
+"id": "peyton watson",
+"jump": 2.2
+},
+{
+"id": "kyshawn george",
+"jump": 3.0
+},
+{
+"id": "cj mccollum",
+"jump": -0.2
+},
+{
+"id": "nic claxton",
+"jump": -0.3
+},
+{
+"id": "devin vassell",
+"jump": -1.3
+},
+{
+"id": "zach lavine",
+"jump": -2.2
+},
+{
+"id": "jakob poeltl",
+"jump": -3.1
+},
+{
+"id": "paolo banchero",
+"jump": 0.0
+},
+{
+"id": "christian braun",
+"jump": -3.7
+},
+{
+"id": "jrue holiday",
+"jump": -0.3
+},
+{
+"id": "quentin grimes",
+"jump": -0.4
+},
+{
+"id": "anthony black",
+"jump": 2.5
+},
+{
+"id": "aaron gordon",
+"jump": 0.4
+},
+{
+"id": "toumani camara",
+"jump": -1.5
+},
+{
+"id": "aaron nesmith",
+"jump": -2.3
+},
+{
+"id": "bobby portis",
+"jump": -1.0
+},
+{
+"id": "demar derozan",
+"jump": -0.5
+},
+{
+"id": "julian champagnie",
+"jump": 2.1
+},
+{
+"id": "ja morant",
+"jump": -1.8
+},
+{
+"id": "jalen green",
+"jump": -2.0
+},
+{
+"id": "jusuf nurkic",
+"jump": 2.0,
+"z_proj": -1.8,
+"z_exp": -3.3,
+"jump_kind": "career yr",
+"jump_pen": 0.84,
+"z3": [
+-0.2,
+-3.5,
+-1.5
+]
+},
+{
+"id": "pj washington",
+"jump": -1.2
+},
+{
+"id": "davion mitchell",
+"jump": 1.6
+},
+{
+"id": "jerami grant",
+"jump": -0.4
+},
+{
+"id": "andrew nembhard",
+"jump": 1.2
+},
+{
+"id": "draymond green",
+"jump": -2.3
+},
+{
+"id": "wendell carter",
+"jump": 2.0
+},
+{
+"id": "kelly oubre",
+"jump": -0.4
+},
+{
+"id": "dillon brooks",
+"jump": 0.3
+},
+{
+"id": "nikola vucevic",
+"jump": -2.6
+},
+{
+"id": "deandre ayton",
+"jump": -0.7
+},
+{
+"id": "rui hachimura",
+"jump": -2.5
+},
+{
+"id": "kyle kuzma",
+"jump": 2.1,
+"z_proj": -2.8,
+"z_exp": -3.6,
+"jump_kind": "bounce-back",
+"jump_pen": 0.53,
+"z3": [
+-0.3,
+-5.8,
+-3.4
+]
+},
+{
+"id": "rj barrett",
+"jump": 1.2
+},
+{
+"id": "anfernee simons",
+"jump": -2.8
+},
+{
+"id": "bennedict mathurin",
+"jump": 0.7
+},
+{
+"id": "aj green",
+"jump": 1.0
+}
+]

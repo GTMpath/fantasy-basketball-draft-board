@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Draft Board 2026-27</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{--bg:#0e1116;--panel:#161b22;--panel2:#1c232d;--line:#2a323d;--text:#e6e9ee;--mute:#8b96a5;--accent:#f5a524;--me:#4cc38a;--red:#ef5350;--orange:#f08c3a;--yellow:#e3c44b;--blue:#5aa9f0}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:13px/1.35 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;height:100vh;display:flex;flex-direction:column;overflow:hidden}
+button,input,select{font:inherit;color:inherit}
+button{background:var(--panel2);border:1px solid var(--line);border-radius:5px;padding:4px 9px;cursor:pointer}
+button:hover{border-color:var(--mute)}
+button.primary{background:var(--accent);color:#1a1300;border-color:var(--accent);font-weight:600}
+input,select{background:var(--bg);border:1px solid var(--line);border-radius:5px;padding:4px 6px}
+.num{font-variant-numeric:tabular-nums;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px}
+header{display:flex;gap:14px;align-items:center;padding:8px 14px;background:var(--panel);border-bottom:1px solid var(--line);flex-wrap:wrap}
+header label{color:var(--mute);font-size:11px;display:flex;gap:5px;align-items:center}
+header input[type=number]{width:52px}
+#clock{flex:1;min-width:300px;font-size:15px;font-weight:600}
+#clock.me{color:var(--me)}
+#clock small{display:block;font-weight:400;font-size:11px;color:var(--mute)}
+main{flex:1;display:grid;grid-template-columns:minmax(0,1fr) 430px;min-height:0}
+#left{display:flex;flex-direction:column;min-width:0;border-right:1px solid var(--line)}
+#filters{display:flex;gap:8px;align-items:center;padding:7px 12px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.chip{padding:3px 9px;border-radius:99px;border:1px solid var(--line);background:transparent;font-size:12px}
+.chip.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+#filters label{color:var(--mute);font-size:12px;display:flex;gap:4px;align-items:center}
+#tablewrap{flex:1;overflow:auto}
+table{border-collapse:collapse;width:100%}
+th{position:sticky;top:0;background:var(--panel);text-align:right;padding:6px 7px;font-size:11px;color:var(--mute);font-weight:600;border-bottom:1px solid var(--line);cursor:pointer;white-space:nowrap;z-index:1}
+th.l,td.l{text-align:left}
+th.punt{text-decoration:line-through;color:var(--red)}
+th.sorted{color:var(--accent)}
+td{padding:5px 7px;border-bottom:1px solid #1d232c;text-align:right;white-space:nowrap}
+tr.taken{opacity:.33}
+tr.mine td{background:rgba(76,195,138,.12)}
+tr:hover td{background:var(--panel)}
+.pname{font-weight:600;cursor:pointer}
+.pname:hover{text-decoration:underline}
+.sub{color:var(--mute);font-size:11px;margin-left:5px}
+.flag{display:inline-block;font-size:10px;font-weight:700;padding:1px 5px;border-radius:3px;margin-left:5px;color:#111;cursor:help}
+.flag.red{background:var(--red)}.flag.orange{background:var(--orange)}.flag.yellow{background:var(--yellow)}
+.tag{display:inline-block;font-size:10px;padding:1px 5px;border-radius:3px;margin-left:4px;border:1px solid var(--line);color:var(--mute)}
+.tag.sleeper,.tag.breakout{color:var(--me);border-color:var(--me)}.tag.bust{color:var(--red);border-color:var(--red)}
+.h2{background:rgba(76,195,138,.42)}.h1{background:rgba(76,195,138,.18)}.l1{background:rgba(239,83,80,.16)}.l2{background:rgba(239,83,80,.4)}
+.puntcell{opacity:.3}
+#right{overflow:auto;background:var(--panel)}
+section{padding:12px 14px;border-bottom:1px solid var(--line)}
+h2{margin:0 0 8px;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.rec{display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px dashed var(--line)}
+.rec:last-child{border:0}
+.rec b{font-size:14px}
+.rec .why{color:var(--mute);font-size:12px}
+.rec .wait{color:var(--blue)}.rec .now{color:var(--accent)}
+.slots{display:grid;grid-template-columns:38px 1fr auto;gap:3px 8px;align-items:center}
+.slots .s{color:var(--mute);font-size:11px}
+.slots .empty{color:#4a5563}
+.cat{display:grid;grid-template-columns:44px 1fr 70px 40px;gap:8px;align-items:center;margin:4px 0}
+.bar{height:9px;background:var(--bg);border-radius:5px;position:relative;overflow:hidden}
+.bar i{position:absolute;top:0;bottom:0;left:50%;border-radius:5px}
+.rk{font-weight:700;text-align:right}
+.good{color:var(--me)}.bad{color:var(--red)}.mid{color:var(--mute)}
+ol.plan{margin:0;padding-left:18px}ol.plan li{margin:5px 0}
+#log{font-size:12px;color:var(--mute);max-height:170px;overflow:auto}
+#log div.m{color:var(--me)}
+#drawer{position:fixed;right:430px;top:0;bottom:0;width:440px;background:var(--panel2);border-left:1px solid var(--line);border-right:1px solid var(--line);padding:16px;overflow:auto;display:none;z-index:5;box-shadow:-12px 0 30px rgba(0,0,0,.5)}
+#drawer h3{margin:0 0 2px;font-size:18px}
+#drawer p{margin:8px 0}
+#drawer .grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:10px 0}
+#drawer .grid div{background:var(--bg);border-radius:5px;padding:6px;text-align:center}
+#drawer .grid span{display:block;color:var(--mute);font-size:10px}
+.warn{border-left:3px solid var(--orange);padding:6px 10px;background:rgba(240,140,58,.1);margin:8px 0}
+.warn.red{border-color:var(--red);background:rgba(239,83,80,.12)}
+a{color:var(--blue)}
+#tabs{display:flex;gap:0;border-bottom:1px solid var(--line);background:var(--panel)}
+#tabs button{border:0;border-bottom:2px solid transparent;border-radius:0;background:transparent;padding:8px 16px;color:var(--mute);font-weight:600}
+#tabs button.on{color:var(--text);border-bottom-color:var(--accent)}
+#planner,#scout{flex:1;overflow:auto;padding:14px 18px;display:none}
+.prow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
+.pgrid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(300px,1fr);gap:22px;align-items:start}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:12px 14px;margin-bottom:14px}
+.card h2 b{color:var(--text)}
+.mini td,.mini th{padding:4px 6px;font-size:12px}
+.mini th{position:static;background:transparent;cursor:default}
+.mx td,.mx th{padding:5px 4px;text-align:center;font-size:11px;border:0;width:44px}
+.mx th{position:static;background:transparent;cursor:default;text-align:center}
+.note{color:var(--mute);font-size:12px;margin:6px 0}
+.chip.tgt{background:var(--me);color:#06231a;border-color:var(--me);font-weight:600}
+.chip.off{text-decoration:line-through;color:var(--mute)}
+.excerpt{white-space:normal;color:var(--mute);font-size:12px;max-width:520px;text-align:left}
+</style>
+</head>
+<body>
+<header>
+  <div id="clock"></div>
+  <label>Teams <input type="number" id="cfgTeams" min="4" max="20"></label>
+  <label>My pick <input type="number" id="cfgSlot" min="1" max="20"></label>
+  <label>Rounds <input type="number" id="cfgRounds" min="5" max="25"></label>
+  <label title="8-cat drops turnovers as a category">Format <select id="cfgFmt"><option value="9">9-cat</option><option value="8">8-cat (no TO)</option></select></label>
+  <button id="simBtn" title="Auto-draft the other teams by Yahoo ADP until it is your turn">Sim to my pick</button>
+  <button id="undoBtn">Undo</button>
+  <button id="resetBtn">Reset</button>
+</header>
+<main>
+  <div id="left">
+    <div id="tabs"><button data-view="board">Draft board</button><button data-view="planner">Build planner</button><button data-view="scout">Sleepers and rookies</button><button data-view="slot">Slot plan</button></div>
+    <div id="planner"></div>
+    <div id="scout"></div>
+    <div id="slotplan" style="flex:1;overflow:auto;padding:14px 18px;display:none"></div>
+    <div id="filters">
+      <input id="q" placeholder="Search player or team" size="22">
+      <span id="posChips"></span>
+      <label><input type="checkbox" id="hideTaken" checked> Hide drafted</label>
+      <label><input type="checkbox" id="hideRisk"> Hide red and orange flags</label>
+      <span class="sub">Click a category header to punt it. Click any other header to sort.</span>
+    </div>
+    <div id="tablewrap"><table><thead id="thead"></thead><tbody id="tbody"></tbody></table></div>
+  </div>
+  <div id="right">
+    <section><h2 id="recTitle">Best picks for you</h2><div id="recs"></div></section>
+    <section><h2>My roster</h2><div class="slots" id="slots"></div></section>
+    <section><h2>My categories vs the league <span class="sub" id="catNote"></span></h2><div id="cats"></div></section>
+    <section><h2>Draft rules for this league</h2><ol class="plan" id="plan"></ol></section>
+    <section><h2>Pick log</h2><div id="log"></div></section>
+    <section><h2>Data</h2><div id="meta" class="sub" style="margin:0"></div></section>
+  </div>
+</main>
+<div id="drawer"></div>
+<script src="data.js"></script>
+<script src="plan.js"></script>
+<script>
+const D = window.DRAFT, P = D.players, byId = Object.fromEntries(P.map(p => [p.id, p]));
+const CATS = [["fg","FG%"],["ft","FT%"],["tpm","3PM"],["pts","PTS"],["reb","REB"],["ast","AST"],["stl","STL"],["blk","BLK"],["tov","TO"]];
+const SLOTS = ["PG","SG","G","SF","PF","F","C","C","Util","Util","BN","BN","BN"];
+const FITS = {PG:["PG"],SG:["SG"],G:["PG","SG"],SF:["SF"],PF:["PF"],F:["SF","PF"],C:["C"],Util:["PG","SG","SF","PF","C"],BN:["PG","SG","SF","PF","C"]};
+const KEY = "draftboard-2026-27";
+let S = Object.assign({teams:D.meta.teams, slot:5, fmt:9, rounds:D.meta.rounds, picks:[], punts:[], hideTaken:true, view:"board", plan:{anchor:"", n:6, cats:null}, scout:"sleeper", pos:"All", sort:"fit", dir:-1}, JSON.parse(localStorage.getItem(KEY) || "{}"));
+const save = () => localStorage.setItem(KEY, JSON.stringify(S));
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+// snake order: which team owns overall pick n (0-based)
+const teamAt = n => { const r = Math.floor(n / S.teams), i = n % S.teams; return r % 2 ? S.teams - i : i + 1; };
+const total = () => S.teams * S.rounds;
+const onClock = () => S.picks.length < total() ? teamAt(S.picks.length) : null;
+function myNext(after) { for (let n = after; n < total(); n++) if (teamAt(n) === S.slot) return n; return null; }
+const takenSet = () => new Set(S.picks.map(p => p.id));
+const roster = t => S.picks.filter(p => p.team === t).map(p => byId[p.id]);
+
+// 8-cat leagues do not count turnovers, so TO behaves like a permanent punt
+const isOff = c => S.punts.includes(c) || (S.fmt === 8 && c === "tov");
+const active = () => CATS.map(c => c[0]).filter(c => !isOff(c));
+const value = p => active().reduce((a, c) => a + p.z[c], 0);
+const durability = p => Math.min(p.gp, 76) / 76;
+
+function teamLine(ps) {
+  const sum = k => ps.reduce((a, p) => a + p[k], 0);
+  const fga = sum("fga"), fta = sum("fta");
+  return {fg: fga ? sum("fgm") / fga : 0, ft: fta ? sum("ftm") / fta : 0, tpm: sum("tpm"), pts: sum("pts"), reb: sum("reb"), ast: sum("ast"), stl: sum("stl"), blk: sum("blk"), tov: -sum("tov")};
+}
+let _avgCache = {k: null, v: null};
+function myAvgZ() {
+  // my per-player average in each category, measured against what the other teams have drafted so far.
+  // Opponents drafting by ADP load up on scorers, so "average" has to mean their average, not a neutral zero.
+  const key = S.picks.length + ":" + S.slot;
+  if (_avgCache.k === key) return _avgCache.v;
+  const mine = roster(S.slot), ids = new Set(mine.map(p => p.id)), others = S.picks.filter(x => !ids.has(x.id)).map(x => byId[x.id]), out = {};
+  CATS.forEach(([c]) => {
+    const m = mine.length ? mine.reduce((a, p) => a + p.z[c], 0) / mine.length : 0;
+    // compare like with like: their first n picks per team, roughly, are the top of their rosters just as mine are
+    const o = others.length >= S.teams - 1 ? others.reduce((a, p) => a + p.z[c], 0) / others.length : 0;
+    out[c] = m - o;
+  });
+  _avgCache = {k: key, v: out};
+  return out;
+}
+function assignSlots(ps) {
+  // fill the most restrictive slots first, most restricted players first
+  const order = ["PG","SG","SF","PF","C","C","G","F","Util","Util","BN","BN","BN"], filled = {}, used = new Set();
+  const sorted = [...ps].sort((a, b) => a.pos.length - b.pos.length);
+  order.forEach((s, i) => { const p = sorted.find(p => !used.has(p.id) && p.pos.some(x => FITS[s].includes(x))); if (p) { used.add(p.id); filled[i] = p; } });
+  const out = [], left = ps.filter(p => !used.has(p.id));
+  SLOTS.forEach(s => { const i = order.findIndex((o, k) => o === s && filled[k] !== undefined && !filled[k]._x); if (i >= 0) { filled[i]._x = 1; out.push([s, filled[i]]); } else out.push([s, null]); });
+  Object.values(filled).forEach(p => delete p._x);
+  left.forEach(p => out.push(["+", p]));
+  return out;
+}
+function openStarters() {
+  const a = assignSlots(roster(S.slot));
+  return a.filter(([s, p]) => !p && s !== "BN").map(([s]) => s);
+}
+const TUNE = {k: .9, mx: 1.8, mn: .3}; const needW = (avgZ, n) => n < 1 ? 1 : Math.max(TUNE.mn, Math.min(TUNE.mx, 1 - (n < 3 ? TUNE.k * .55 : TUNE.k) * avgZ));
+function fit(p) {
+  const mine = roster(S.slot), avg = myAvgZ(), n = mine.length, round = Math.floor(S.picks.length / S.teams) + 1;
+  // need weights: a category you already lead by a mile is worth little more, one you are losing is worth a lot
+  let v = active().reduce((a, c) => a + p.z[c] * needW(avg[c], n), 0);
+  // missed games cost more than their share: an empty slot in a weekly matchup, and a wasted pick if he never returns
+  v = (v + 2.5) * Math.pow(Math.min(p.gp, 78) / 78, 1.6) - 2.5;
+  const risky = mine.filter(x => x.flag === "orange" || x.flag === "red").length;
+  if (p.flag === "red") v -= 4;
+  // one gamble at most, never early, and cheaper once he has slid two rounds past his ADP
+  const slid = p.yahoo_adp && S.picks.length + 1 >= p.yahoo_adp + 2 * S.teams;
+  if (p.flag === "orange") v -= (slid ? .3 : .8) + 1.2 * risky + (round <= 3 ? 1 : 0);
+  if (p.flag === "yellow") v -= .2;
+  v += p.age_adj || 0;  // aging curve: young players gain, players past 29 lose
+  v -= p.jump_pen || 0;  // older jump season: only the part the projection keeps beyond what history supports (scripts/jump_check.py)
+  if (p.po) v += .12 * (p.po - 10.6);  // games in the league's three playoff weeks (range 9 to 12)
+  const open = openStarters().filter(s => s !== "Util"), left = S.rounds - n;
+  if (round >= 5 && open.includes("C") && p.pos.includes("C")) v += .4;
+  if (open.length && left <= open.length + 3) v += open.some(s => p.pos.some(x => FITS[s].includes(x))) ? .8 : -.8;
+  // he should still be on the board at my following pick, so someone scarcer goes first; more so for each later pick he would last to
+  // (without the extra steps a punt build took Reed Sheppard, ADP 120, at pick 20)
+  let nx = myNext(S.picks.length), lasts = 0;
+  for (let k = 0; k < 3 && nx !== null; k++) { nx = myNext(nx + 1); if (nx !== null && p.yahoo_adp && p.yahoo_adp > nx + 8) lasts++; else break; }
+  v -= .6 * lasts;
+  return v;
+}
+
+function draft(id) {
+  const t = onClock(); if (!t || takenSet().has(id)) return;
+  S.picks.push({id, team: t}); save(); render();
+}
+function simToMe() {
+  const taken = takenSet();
+  while (onClock() && onClock() !== S.slot) {
+    const pool = P.filter(p => !taken.has(p.id) && p.yahoo_adp).sort((a, b) => a.yahoo_adp - b.yahoo_adp).slice(0, 4);
+    if (!pool.length) break;
+    const p = pool[Math.floor(Math.pow(Math.random(), 2) * pool.length)];
+    S.picks.push({id: p.id, team: onClock()}); taken.add(p.id);
+  }
+  save(); render();
+}
+
+const cls = z => z >= 1.5 ? "h2" : z >= .5 ? "h1" : z <= -1.5 ? "l2" : z <= -.5 ? "l1" : "";
+const fmt = {fg: p => (p.fgm / p.fga).toFixed(3).slice(1), ft: p => (p.ftm / p.fta).toFixed(3).slice(1), tpm: p => p.tpm.toFixed(1), pts: p => p.pts.toFixed(1), reb: p => p.reb.toFixed(1), ast: p => p.ast.toFixed(1), stl: p => p.stl.toFixed(1), blk: p => p.blk.toFixed(1), tov: p => p.tov.toFixed(1)};
+const flagLabel = {red: "AVOID", orange: "RISK", yellow: "WATCH"};
+const flagHtml = p => p.flag ? `<span class="flag ${p.flag}" title="${esc(p.reasons.join(" | "))}">${flagLabel[p.flag]}</span>` : "";
+const tagCount = (p, k) => new Set(p.tags.filter(t => t.kind === k).flatMap(t => t.sources && t.sources.length ? t.sources : [t.text])).size;
+const clip = (t, n) => t.length > n ? t.slice(0, n).replace(/\s+\S*$/, "") + "..." : t;
+// a badge needs three separate sources behind it, otherwise half the board is a "sleeper"
+const z3Txt = p => p.z3 ? `per-game value ${p.z3.map(x => x == null ? "n/a" : x).join(" / ")} over the last three seasons, projected ${p.z_proj}, history-based expectation ${p.z_exp}` : "";
+const peakHtml = p => p.peak && p.jump_kind ? `<span class="tag bust" title="Age ${p.age}, ${p.jump_kind}: ${z3Txt(p)}. Fit penalty ${p.jump_pen}.">${p.jump_kind === "career yr" ? "career yr" : p.jump_kind === "bounce-back" ? "bounce-back" : "injury rebound"}${p.jump_pen >= .2 ? " −" + p.jump_pen : ""}</span>` : "";
+const tagHtml = p => peakHtml(p) + ["sleeper", "breakout", "bust", "rookie"].filter(k => tagCount(p, k) >= (k === "rookie" ? 1 : 3)).map(k => `<span class="tag ${k}" title="${k === "rookie" ? "2026 rookie" : tagCount(p, k) + " sources"}">${k}${k === "rookie" ? "" : " " + tagCount(p, k)}</span>`).join("");
+
+function render() {
+  document.querySelectorAll("#tabs button").forEach(b => b.classList.toggle("on", b.dataset.view === S.view));
+  $("filters").style.display = $("tablewrap").style.display = S.view === "board" ? "" : "none";
+  $("planner").style.display = S.view === "planner" ? "block" : "none";
+  $("scout").style.display = S.view === "scout" ? "block" : "none";
+  if (S.view === "planner") renderPlanner();
+  if (S.view === "scout") renderScout();
+  $("slotplan").style.display = S.view === "slot" ? "block" : "none";
+  if (S.view === "slot") renderSlot();
+  const taken = takenSet(), mine = new Set(roster(S.slot).map(p => p.id));
+  const n = S.picks.length, t = onClock(), next = myNext(n), after = next === null ? null : myNext(next + 1);
+  // clock
+  const c = $("clock");
+  if (!t) { c.className = ""; c.innerHTML = "Draft complete"; }
+  else {
+    const rd = Math.floor(n / S.teams) + 1, pk = n % S.teams + 1, me = t === S.slot;
+    c.className = me ? "me" : "";
+    c.innerHTML = `${me ? "YOUR PICK" : "Team " + t + " is picking"} · Round ${rd}, pick ${pk} (overall ${n + 1})<small>${me ? (after !== null ? `Your next pick after this is overall ${after + 1}, which is ${after - n - 1} picks away.` : "This is your last pick.") : (next !== null ? `You pick in ${next - n} (overall ${next + 1}). Click whoever each team takes.` : "")}</small>`;
+  }
+  // header
+  const cols = [["rank","#"],["name","Player","l"],["yahoo_adp","ADP"],["yahoo_rank","Y rank"],["fit","Fit"],["value","Value"],["age","Age"],["last_gp","GP 25-26"],["gp","Proj GP"],["po","PO"]];
+  $("thead").innerHTML = "<tr>" + cols.map(([k, l, a]) => `<th class="${a || ""} ${S.sort === k ? "sorted" : ""}" data-sort="${k}">${l}</th>`).join("") +
+    CATS.map(([k, l]) => `<th class="${isOff(k) ? "punt" : ""}" data-punt="${k}" title="Click to punt ${l}">${l}</th>`).join("") + "<th></th></tr>";
+  // rows
+  const q = $("q").value.trim().toLowerCase();
+  let rows = P.filter(p => (!S.hideTaken || !taken.has(p.id)) && (S.pos === "All" || p.pos.includes(S.pos)) && (!S.hideRisk || !["red","orange"].includes(p.flag)) && (!q || (p.name + " " + p.team).toLowerCase().includes(q)));
+  rows.forEach(p => { p._v = value(p); p._f = fit(p); });
+  const key = {rank: p => -p._v, name: p => p.name, yahoo_adp: p => p.yahoo_adp ?? 999, yahoo_rank: p => p.yahoo_rank ?? 999, fit: p => p._f, value: p => p._v, gp: p => p.gp, po: p => p.po ?? 0, age: p => p.age ?? 0, last_gp: p => p.last_gp ?? -1}[S.sort];
+  rows.sort((a, b) => (key(a) > key(b) ? 1 : key(a) < key(b) ? -1 : 0) * S.dir);
+  const vr = Object.fromEntries([...P].sort((a, b) => value(b) - value(a)).map((p, i) => [p.id, i + 1]));
+  $("tbody").innerHTML = rows.slice(0, 260).map(p => `<tr class="${mine.has(p.id) ? "mine" : taken.has(p.id) ? "taken" : ""}">
+    <td class="num">${vr[p.id]}</td>
+    <td class="l"><span class="pname" data-open="${esc(p.id)}">${esc(p.name)}</span><span class="sub">${p.team} · ${p.pos.join("/")}</span>${flagHtml(p)}${tagHtml(p)}</td>
+    <td class="num">${p.yahoo_adp ?? "-"}</td><td class="num" title="Yahoo pre-season rank, the default order in your draft room">${p.yahoo_rank ?? "-"}</td><td class="num">${p._f.toFixed(1)}</td><td class="num">${p._v.toFixed(1)}</td><td class="num ${p.age >= 32 ? "bad" : p.age && p.age <= 23 ? "good" : ""}" title="Age adjustment to Fit: ${p.age_adj >= 0 ? "+" : ""}${p.age_adj}">${p.age ?? "-"}</td><td class="num ${p.last_gp !== null && p.last_gp < 55 ? "bad" : ""}" title="Games played in 2025-26">${p.last_gp ?? "-"}</td><td class="num ${p.gp < 60 ? "bad" : ""}" title="Projected games this season">${p.gp}</td><td class="num ${p.po >= 12 ? "good" : p.po <= 9 ? "bad" : ""}" title="${p.po ? "Games in playoff weeks 19, 20, 21: " + p.po_weeks.join(", ") + ". Second nights of back-to-backs: " + p.po_b2b : ""}">${p.po ?? "-"}</td>
+    ${CATS.map(([k]) => `<td class="num ${cls(p.z[k])} ${isOff(k) ? "puntcell" : ""}" title="z ${p.z[k]}">${fmt[k](p)}</td>`).join("")}
+    <td>${taken.has(p.id) ? "" : `<button data-draft="${esc(p.id)}" class="${t === S.slot ? "primary" : ""}">${t === S.slot ? "Draft" : "Taken"}</button>`}</td></tr>`).join("");
+  renderRecs(taken, n, next, after); renderRoster(); renderCats(); renderLog();
+  $("posChips").innerHTML = ["All","PG","SG","SF","PF","C"].map(x => `<button class="chip ${S.pos === x ? "on" : ""}" data-pos="${x}">${x}</button>`).join(" ");
+  ["Teams","Slot","Rounds"].forEach(k => $("cfg" + k).value = S[k.toLowerCase()]);
+  $("cfgFmt").value = String(S.fmt || 9);
+  $("hideTaken").checked = S.hideTaken !== false; $("hideRisk").checked = !!S.hideRisk;
+}
+
+function renderRecs(taken, n, next, after) {
+  const me = onClock() === S.slot, target = me ? after : myNext(next === null ? n : next + 1);
+  $("recTitle").textContent = me ? "Best picks for you right now" : next === null ? "Draft complete" : `Likely best options at your pick (overall ${next + 1})`;
+  // when it is not my turn, assume the lowest-ADP players go before I pick
+  let pool = P.filter(p => !taken.has(p.id) && p.flag !== "red");
+  if (!me && next !== null) { const gone = new Set([...pool].filter(p => p.yahoo_adp).sort((a, b) => a.yahoo_adp - b.yahoo_adp).slice(0, next - n).map(p => p.id)); pool = pool.filter(p => !gone.has(p.id)); }
+  const avg = myAvgZ(), open = openStarters();
+  const recs = pool.map(p => [fit(p), p]).sort((a, b) => b[0] - a[0]).slice(0, 7);
+  $("recs").innerHTML = recs.map(([f, p]) => {
+    const top = active().filter(c => p.z[c] >= .7).sort((a, b) => p.z[b] - p.z[a]).slice(0, 3).map(c => CATS.find(x => x[0] === c)[1]);
+    const hurts = active().filter(c => p.z[c] <= -1).map(c => CATS.find(x => x[0] === c)[1]);
+    const helps = active().filter(c => avg[c] < -.15 && p.z[c] >= .5).map(c => CATS.find(x => x[0] === c)[1]);
+    const overall = (me ? n : next) + 1;
+    let timing = "";
+    if (p.yahoo_adp && target !== null) timing = p.yahoo_adp > target + 1 + 5 ? `<span class="wait">ADP ${p.yahoo_adp}: should still be there at your following pick (${target + 1}).</span>` : `<span class="now">ADP ${p.yahoo_adp}: will not last to pick ${target + 1}.</span>`;
+    if (p.yahoo_adp && p.yahoo_adp > overall + S.teams * 1.5) timing += ` Reach of ${Math.round(p.yahoo_adp - overall)} picks.`;
+    return `<div class="rec"><div style="flex:1"><b class="pname" data-open="${esc(p.id)}">${esc(p.name)}</b><span class="sub">${p.team} · ${p.pos.join("/")}</span>${flagHtml(p)}${tagHtml(p)}
+      <div class="why">${top.length ? "Strong in " + top.join(", ") + ". " : ""}${helps.length ? "Fixes your weak " + helps.join(", ") + ". " : ""}${hurts.length ? "Costs you " + hurts.join(", ") + ". " : ""}${open.some(s => s !== "Util" && p.pos.some(x => FITS[s].includes(x))) ? "Fills an open starting slot. " : ""}Age ${p.age ?? "?"}, played ${p.last_gp ?? "no"} games last season, projected ${p.gp}. ${timing}</div></div>
+      <div class="num" style="text-align:right">fit ${f.toFixed(1)}${me ? `<br><button class="primary" data-draft="${esc(p.id)}" style="margin-top:4px">Draft</button>` : ""}</div></div>`;
+  }).join("") || '<div class="sub">No picks left.</div>';
+}
+
+function renderRoster() {
+  const pickNo = Object.fromEntries(S.picks.map((x, i) => [x.id, i + 1]));
+  $("slots").innerHTML = assignSlots(roster(S.slot)).map(([s, p]) => `<div class="s">${s}</div>` + (p ? `<div><span class="pname" data-open="${esc(p.id)}">${esc(p.name)}</span><span class="sub">${p.team} · ${p.pos.join("/")}</span>${flagHtml(p)}</div><div class="num sub" title="Overall pick ${pickNo[p.id]}">R${Math.ceil(pickNo[p.id] / S.teams)} · ${p.gp} gp</div>` : `<div class="empty">open</div><div></div>`)).join("");
+}
+
+function renderCats() {
+  const mine = roster(S.slot);
+  if (!mine.length) { $("cats").innerHTML = '<div class="sub">Fills in as you draft. Rank 1 is best in the league for that category.</div>'; $("catNote").textContent = ""; return; }
+  const lines = {}; for (let t = 1; t <= S.teams; t++) { const r = roster(t); if (r.length) lines[t] = teamLine(r); }
+  const me = lines[S.slot], others = Object.keys(lines).length;
+  let wins = 0;
+  $("cats").innerHTML = CATS.map(([c, l]) => {
+    const vals = Object.values(lines).map(x => x[c]), rank = vals.filter(v => v > me[c]).length + 1;
+    const avg = mine.reduce((a, p) => a + p.z[c], 0) / mine.length, w = Math.min(50, Math.abs(avg) * 40), punted = isOff(c);
+    if (rank <= Math.ceil(others / 2)) wins++;
+    const shown = c === "fg" || c === "ft" ? me[c].toFixed(3).slice(1) : Math.abs(me[c]).toFixed(1);
+    return `<div class="cat" style="${punted ? "opacity:.4" : ""}"><div>${l}</div><div class="bar"><i style="${avg >= 0 ? "left:50%" : "left:" + (50 - w) + "%"};width:${w}%;background:${avg >= 0 ? "var(--me)" : "var(--red)"}"></i></div><div class="num sub">${shown}</div><div class="rk ${rank <= others / 3 ? "good" : rank > others * 2 / 3 ? "bad" : "mid"}">${rank}/${others}</div></div>`;
+  }).join("");
+  $("catNote").textContent = `top half in ${wins} of 9`;
+}
+
+function renderLog() {
+  $("log").innerHTML = [...S.picks].reverse().map((p, i) => { const n = S.picks.length - i; return `<div class="${p.team === S.slot ? "m" : ""}">${Math.ceil(n / S.teams)}.${(n - 1) % S.teams + 1} · ${p.team === S.slot ? "You" : "Team " + p.team} · ${esc(byId[p.id].name)}</div>`; }).join("") || '<div>No picks yet.</div>';
+}
+
+function openDrawer(id) {
+  const p = byId[id], d = $("drawer");
+  const line = [["PTS", p.pts], ["REB", p.reb], ["AST", p.ast], ["STL", p.stl], ["BLK", p.blk], ["3PM", p.tpm], ["TO", p.tov], ["FG%", (p.fgm / p.fga).toFixed(3)], ["FT%", (p.ftm / p.fta).toFixed(3)], ["MIN", p.mpg]];
+  d.innerHTML = `<button style="float:right" id="closeDrawer">Close</button><h3>${esc(p.name)}</h3><div class="sub" style="margin:0">${p.team} · ${p.pos.join("/")} · Yahoo ADP ${p.yahoo_adp ?? "n/a"} · ESPN rank ${p.espn_rank ?? "n/a"}</div>
+    ${p.flag ? `<div class="warn ${p.flag}"><b>${flagLabel[p.flag]}</b><br>${p.reasons.map(esc).join("<br>")}${p.inj_source ? `<br><a href="${esc(p.inj_source)}" target="_blank" rel="noopener">source</a>${p.inj_conf ? " (" + esc(p.inj_conf) + " confidence)" : ""}` : ""}</div>` : (p.reasons.length ? `<p class="sub">${p.reasons.map(esc).join(" ")}</p>` : "")}
+    <div class="grid">${line.map(([l, v]) => `<div class="num"><span>${l}</span>${v}</div>`).join("")}</div>
+    ${p.age ? (() => { const a = D.meta.aging[Math.max(20, Math.min(37, p.age))], b = D.meta.aging[27]; return a ? `<p><b>Age ${p.age}.</b> Since 2005, healthy starters at this age averaged ${a.games} games the next season, ${Math.round(a.under55 * 100)}% played under 55, and their per-game value changed by ${a.dz >= 0 ? "+" : ""}${a.dz} (age 27: ${b.games} games, ${b.dz}). Fit adjustment ${p.age_adj >= 0 ? "+" : ""}${p.age_adj}.</p>` : `<p><b>Age ${p.age}.</b></p>`; })() : ""}${p.peak && p.jump_kind ? `<div class="warn"><b>${p.jump_kind === "career yr" ? "Coming off a career year" : p.jump_kind === "bounce-back" ? "Bounced back to an earlier level" : "Jumped after an injury-shortened season"} at ${p.age}.</b> ${z3Txt(p)[0].toUpperCase() + z3Txt(p).slice(1)}. ${p.jump_pen >= .05 ? `The projection keeps more of last season than players like him have held onto since 2005, so Fit takes off ${p.jump_pen}.` : "The projection already pulls him back as far as history says, so there is no extra penalty."}</div>` : ""}<p><b>Games played:</b> ${p.hist.map(h => `${h.season}: ${h.gp} (${h.mpg} mpg)`).join(" · ") || "no NBA history"}<br>${p.po ? `<b>Playoff weeks:</b> ${p.po} games (${p.po_weeks.join(", ")} in weeks 19, 20, 21), ${p.po_b2b} on the second night of a back-to-back. ${p.season_b2b} back-to-backs all season.<br>` : ""}<span class="sub" style="margin:0">Board projects ${p.gp} games. ESPN projects ${p.espn_gp}. Projection source: ${p.proj_src.join(" + ")}.</span></p>
+    ${p.tags.map(t => `<p><span class="tag ${t.kind}" style="margin:0">${t.kind}</span> ${esc(t.text)} ${(t.sources || []).map((s, i) => `<a href="${esc(s)}" target="_blank" rel="noopener">[${i + 1}]</a>`).join(" ")}</p>`).join("")}
+    ${p.outlook ? `<h2 style="margin-top:14px">ESPN outlook</h2><p>${esc(p.outlook)}</p>` : ""}`;
+  d.style.display = "block";
+}
+
+// ---------- Build planner ----------
+const CN = Object.fromEntries(CATS);
+const POOL = [...P].sort((a, b) => b.zsum - a.zsum).slice(0, D.meta.teams * D.meta.rounds);
+const CORR = (() => {
+  const m = {}, mean = c => POOL.reduce((a, p) => a + p.z[c], 0) / POOL.length, mu = {}, sd = {};
+  CATS.forEach(([c]) => { mu[c] = mean(c); sd[c] = Math.sqrt(POOL.reduce((a, p) => a + (p.z[c] - mu[c]) ** 2, 0) / POOL.length); });
+  CATS.forEach(([a]) => { m[a] = {}; CATS.forEach(([b]) => m[a][b] = POOL.reduce((t, p) => t + (p.z[a] - mu[a]) * (p.z[b] - mu[b]), 0) / (POOL.length * sd[a] * sd[b])); });
+  return m;
+})();
+function planCore() {  // the players the build is anchored on
+  const mine = roster(S.slot), a = byId[S.plan.anchor];
+  if (a && !mine.some(p => p.id === a.id)) return {core: [a, ...mine], hypo: true};
+  return {core: mine, hypo: false};
+}
+function autoCats(core, n) {
+  // start from what the core is best at, then add the categories that travel with it
+  const avg = c => core.reduce((a, p) => a + p.z[c], 0) / core.length, all = CATS.map(c => c[0]).filter(c => !(S.fmt === 8 && c === "tov")), chosen = [];
+  while (chosen.length < n) {
+    let best = null, bs = -1e9;
+    all.filter(c => !chosen.includes(c)).forEach(c => { const sc = avg(c) + (chosen.length ? .9 * chosen.reduce((a, x) => a + CORR[c][x], 0) / chosen.length : 0); if (sc > bs) { bs = sc; best = c; } });
+    chosen.push(best);
+  }
+  return chosen;
+}
+function myPickInRound(r) { return r % 2 ? (r - 1) * S.teams + S.slot : r * S.teams - S.slot + 1; }
+function planScore(p, cats, core) {
+  let v = cats.reduce((a, c) => { const have = core.reduce((t, x) => t + x.z[c], 0) / core.length; return a + p.z[c] * needW(have, core.length); }, 0);
+  v = (v + 2) * Math.pow(Math.min(p.gp, 78) / 78, 1.6) - 2;
+  if (p.flag === "orange") v -= .8; if (p.flag === "red") v -= 4;
+  return v + (p.age_adj || 0);
+}
+function renderPlanner() {
+  const {core, hypo} = planCore(), el = $("planner"), taken = takenSet();
+  const head = `<div class="prow"><b>Build around</b><input id="planAnchor" list="plist" placeholder="Type a first-round player" value="${esc(byId[S.plan.anchor]?.name || "")}" size="26"><datalist id="plist">${[...P].sort((a, b) => (a.yahoo_adp ?? 999) - (b.yahoo_adp ?? 999)).slice(0, 80).map(p => `<option value="${esc(p.name)}">`).join("")}</datalist>
+    <button data-planclear="1">Use my roster only</button>
+    <b style="margin-left:14px">Categories to win</b>${[4, 5, 6, 7].map(n => `<button class="chip ${!S.plan.cats && S.plan.n === n ? "on" : ""}" data-plann="${n}">${n}</button>`).join("")}</div>`;
+  if (!core.length) { el.innerHTML = head + `<div class="note">Type a player above (for example Anthony Edwards) to see which categories he sets up and who pairs with him at your next picks. Once you have drafted someone, this uses your real roster.</div>` + corrCard(); return; }
+  const cats = S.plan.cats || autoCats(core, S.plan.n), avg = c => core.reduce((a, p) => a + p.z[c], 0) / core.length;
+  const chips = `<div class="prow">${CATS.map(([c, l]) => `<button class="chip ${cats.includes(c) ? "tgt" : "off"}" data-plancat="${c}" title="Click to move ${l} in or out of the build">${l}</button>`).join("")}
+    <button data-planauto="1" title="Let the board choose the categories again">Auto</button><button class="primary" data-planapply="1" title="Punt the crossed-out categories on the draft board">Apply to draft board</button></div>`;
+  const losing = CATS.filter(([c]) => !cats.includes(c)).map(c => c[1]);
+  const profile = `<div class="card"><h2>${hypo ? "If you start with" : "Your roster so far:"} <b>${core.map(p => esc(p.name)).join(", ")}</b></h2>
+    ${CATS.map(([c, l]) => { const z = avg(c), w = Math.min(50, Math.abs(z) * 16); return `<div class="cat" style="${cats.includes(c) ? "" : "opacity:.4"}"><div>${l}</div><div class="bar"><i style="${z >= 0 ? "left:50%" : "left:" + (50 - w) + "%"};width:${w}%;background:${z >= 0 ? "var(--me)" : "var(--red)"}"></i></div><div class="num sub">z ${z >= 0 ? "+" : ""}${z.toFixed(1)}</div><div></div></div>`; }).join("")}
+    <div class="note">Build: win <b>${cats.map(c => CN[c]).join(", ")}</b>${losing.length ? " and stop paying for " + losing.join(", ") : ""}. Every category is its own win in this league, so a ${cats.length}-category build tops out at ${cats.length}-${9 - cats.length} in a week. Six or seven is the realistic target; four and five show you the core.</div></div>`;
+  // next three picks after the core
+  const have = hypo ? Math.max(1, roster(S.slot).length + 1) : roster(S.slot).length, coreIds = new Set(core.map(p => p.id));
+  const avail = P.filter(p => !taken.has(p.id) && !coreIds.has(p.id) && p.flag !== "red");
+  const prAll = (D.meta.pairings || []).filter(x => core.some(p => p.id === x.anchor_id)), named = {};
+  prAll.forEach(x => x.partner_ids.forEach(id => named[id] = (named[id] || 0) + 1));
+  let chain = [...core], cards = "";
+  for (let r = have + 1; r <= Math.min(have + 4, S.rounds); r++) {
+    const pick = myPickInRound(r), after = myPickInRound(r + 1), inChain = new Set(chain.map(p => p.id));
+    const needC = Math.max(0, 2 - chain.filter(p => p.pos.includes("C")).length);
+    // from round 3 a build with no center has to start paying for one: the league starts two
+    const sc = p => planScore(p, cats, chain) + (r >= 3 && needC && p.pos.includes("C") ? .5 * needC : 0) + Math.min(.6, .3 * (named[p.id] || 0));
+    const list = avail.filter(p => !inChain.has(p.id) && (p.yahoo_adp ?? 200) >= pick - 4).map(p => [sc(p), p]).sort((a, b) => b[0] - a[0]).slice(0, 7);
+    cards += `<div class="card"><h2>Round ${r} <b>pick ${pick}</b> <span class="sub">${chain.length > core.length ? "after " + chain.slice(core.length).map(p => esc(p.name)).join(", ") : "players usually still on the board here"}${r >= 3 && needC ? " · still need " + needC + " center" + (needC > 1 ? "s" : "") : ""}</span></h2><table class="mini"><thead><tr><th class="l">Player</th><th>ADP</th><th>GP</th><th>Fit</th>${cats.map(c => `<th>${CN[c]}</th>`).join("")}</tr></thead><tbody>
+      ${list.map(([v, p]) => `<tr><td class="l"><span class="pname" data-open="${esc(p.id)}">${esc(p.name)}</span><span class="sub">${p.pos.join("/")}</span>${flagHtml(p)}${named[p.id] ? `<span class="tag sleeper" title="Named as a partner for your anchor by ${named[p.id]} analyst${named[p.id] > 1 ? "s" : ""}">analyst pick${named[p.id] > 1 ? " " + named[p.id] : ""}</span>` : ""}${tagHtml(p)}</td><td class="num" ${(p.yahoo_adp ?? 0) > after + 4 ? 'style="color:var(--blue)" title="Usually lasts to your following pick"' : ""}>${p.yahoo_adp ?? "-"}</td><td class="num ${p.gp < 60 ? "bad" : ""}">${p.gp}</td><td class="num">${v.toFixed(1)}</td>${cats.map(c => `<td class="num ${cls(p.z[c])}">${fmt[c](p)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+    const top = list.find(([, p]) => p.flag !== "orange") || list[0];
+    if (top) chain.push(top[1]);  // each later round assumes you took the top healthy name here
+  }
+  cards += `<div class="note">Each round assumes you took the top healthy name from the round before. A blue ADP means the player usually lasts to your following pick.</div>`;
+  const pr = (D.meta.pairings || []).filter(x => core.some(p => p.id === x.anchor_id));
+  const said = pr.length ? `<div class="card"><h2>What analysts pair with ${esc(core[0].name)}</h2>${pr.map(x => `<p style="margin:8px 0"><b>${x.partners.length ? x.partners.map(esc).join(", ") : "No partner named"}</b> <span class="sub">${esc(x.build || "")}</span><br><span class="note">${esc(clip(x.why || "", 300))} <a href="${esc(x.source_url)}" target="_blank" rel="noopener">source</a></span></p>`).join("")}</div>` : "";
+  el.innerHTML = head + chips + `<div class="pgrid"><div>${cards}</div><div>${profile}${said}${corrCard(cats)}</div></div>`;
+}
+function corrCard(cats) {
+  const cell = v => `background:rgba(${v >= 0 ? "76,195,138" : "239,83,80"},${Math.min(.75, Math.abs(v) * .8)})`;
+  const pairs = []; CATS.forEach(([a], i) => CATS.slice(i + 1).forEach(([b]) => pairs.push([CORR[a][b], a, b])));
+  pairs.sort((x, y) => y[0] - x[0]);
+  const line = x => `${CN[x[1]]} and ${CN[x[2]]} (${x[0] >= 0 ? "+" : ""}${x[0].toFixed(2)})`;
+  return `<div class="card"><h2>Which categories come together</h2><table class="mx"><tr><th></th>${CATS.map(c => `<th>${c[1]}</th>`).join("")}</tr>
+    ${CATS.map(([a, l]) => `<tr><th style="text-align:right">${l}</th>${CATS.map(([b]) => `<td class="num" style="${a === b ? "color:var(--mute)" : cell(CORR[a][b])}">${a === b ? "" : CORR[a][b].toFixed(2).replace("0.", ".")}</td>`).join("")}</tr>`).join("")}</table>
+    <div class="note">Across the ${POOL.length} draftable players. Green pairs show up in the same player, red pairs fight each other. TO is scored so that fewer turnovers is better.</div>
+    <div class="note"><b>Come together:</b> ${pairs.slice(0, 5).map(line).join(", ")}.</div>
+    <div class="note"><b>Fight each other:</b> ${pairs.slice(-5).reverse().map(line).join(", ")}.</div></div>`;
+}
+
+// ---------- Sleepers and rookies ----------
+function renderScout() {
+  const kinds = [["sleeper", "Sleepers"], ["breakout", "Breakouts"], ["rookie", "Rookies"], ["bust", "Busts to avoid"]], k = S.scout, taken = takenSet();
+  const rows = P.filter(p => p.tags.some(t => t.kind === k)).map(p => { const ts = p.tags.filter(t => t.kind === k); return {p, ts, n: new Set(ts.flatMap(t => t.sources || [])).size || ts.length}; });
+  (D.meta.offboard || []).filter(o => o.kind === k).forEach(o => { let r = rows.find(x => x.off && x.name === o.name); if (!r) rows.push(r = {off: true, name: o.name, team: o.team, adp: o.yahoo_adp, ts: [], n: 0}); r.ts.push({text: o.text, sources: o.sources}); r.n = new Set(r.ts.flatMap(t => t.sources || [])).size; });
+  rows.sort((a, b) => b.n - a.n || ((a.p?.yahoo_adp ?? a.adp ?? 999) - (b.p?.yahoo_adp ?? b.adp ?? 999)));
+  $("scout").innerHTML = `<div class="prow">${kinds.map(([v, l]) => `<button class="chip ${k === v ? "on" : ""}" data-scout="${v}">${l}</button>`).join("")}<span class="note">Ranked by how many separate articles, videos and mock drafts named the player. ${D.meta.sources.length} sources read${D.meta.mocks?.length ? ", " + D.meta.mocks.length + " expert mock drafts" : ""}.</span></div>
+    <table><thead><tr><th class="l">Player</th><th>Sources</th><th>Yahoo ADP</th><th>Mock avg</th><th>GP</th><th>Value rank</th><th class="l">What they say</th><th></th></tr></thead><tbody>
+    ${rows.map(r => r.off ? `<tr><td class="l"><b>${esc(r.name)}</b><span class="sub">${esc(r.team || "")} · no projection yet</span></td><td class="num">${r.n}</td><td class="num">${r.adp ?? "-"}</td><td></td><td></td><td></td><td class="excerpt">${esc(clip(r.ts.map(t => t.text).join(" "), 340))}</td><td></td></tr>`
+      : `<tr class="${taken.has(r.p.id) ? "taken" : ""}"><td class="l"><span class="pname" data-open="${esc(r.p.id)}">${esc(r.p.name)}</span><span class="sub">${r.p.team} · ${r.p.pos.join("/")}</span>${flagHtml(r.p)}</td><td class="num">${r.n}</td><td class="num">${r.p.yahoo_adp ?? "-"}</td><td class="num">${r.p.mock ?? "-"}</td><td class="num ${r.p.gp < 60 ? "bad" : ""}">${r.p.gp}</td><td class="num">${r.p.rank}</td><td class="excerpt">${esc(clip(r.ts.map(t => t.text).join(" "), 340))}</td><td>${taken.has(r.p.id) ? "" : `<button data-draft="${esc(r.p.id)}">${onClock() === S.slot ? "Draft" : "Taken"}</button>`}</td></tr>`).join("") || `<tr><td class="l" colspan="8">Nothing in this list yet.</td></tr>`}</tbody></table>`;
+}
+
+// ---------- Slot plan: simulate many drafts from my slot ----------
+const expPick = p => p.yahoo_adp && p.yahoo_rank ? (p.yahoo_adp + p.yahoo_rank) / 2 : (p.yahoo_adp ?? p.yahoo_rank ?? 400);
+const gauss = () => { let u = 0; for (let i = 0; i < 4; i++) u += Math.random(); return (u - 2) * 1.73; };
+let SLOTRES = null;
+function runSlotSims(n) {
+  const keep = S.picks, res = {slot: S.slot, n, rounds: {}, cats: Object.fromEntries(CATS.map(c => [c[0], 0]))};
+  for (let i = 0; i < n; i++) {
+    S.picks = [];
+    const taken = new Set(), noise = Object.fromEntries(P.map(p => { const e = expPick(p); return [p.id, e + gauss() * (1.5 + .13 * e)]; }));
+    const order = [...P].sort((a, b) => noise[a.id] - noise[b.id]);
+    while (onClock()) {
+      const t = onClock(); let pick;
+      if (t === S.slot) {
+        const r = roster(S.slot).length + 1, avail = P.filter(p => !taken.has(p.id) && p.flag !== "red");
+        const ranked = avail.map(p => [fit(p), p]).sort((a, b) => b[0] - a[0]);
+        const R = res.rounds[r] = res.rounds[r] || {pick: S.picks.length + 1, took: {}, top: {}};
+        pick = ranked[0][1]; R.took[pick.id] = (R.took[pick.id] || 0) + 1;
+        ranked.slice(0, 5).forEach(([, p]) => R.top[p.id] = (R.top[p.id] || 0) + 1);
+      } else pick = order.find(p => !taken.has(p.id));
+      taken.add(pick.id); S.picks.push({id: pick.id, team: t});
+    }
+    const lines = {}; for (let t = 1; t <= S.teams; t++) lines[t] = teamLine(roster(t));
+    CATS.forEach(([c]) => res.cats[c] += Object.values(lines).filter(x => x[c] > lines[S.slot][c]).length + 1);
+  }
+  S.picks = keep; SLOTRES = res;
+}
+function renderSlot() {
+  const el = $("slotplan"), R = SLOTRES && SLOTRES.slot === S.slot ? SLOTRES : null;
+  let h = `<div class="prow"><b>Draft slot ${S.slot} of ${S.teams}</b><button class="primary" data-slotrun="150">Simulate 150 drafts from this slot</button><span class="note">Change "My pick" in the top bar when you learn your slot, then run this again. Other teams draft near Yahoo ADP and Yahoo rank with realistic noise, and you take the board's top Fit pick each round${S.punts.length ? ", punting " + S.punts.map(c => CN[c]).join(", ") : ""}.</span></div>`;
+  if (!R) { el.innerHTML = h + `<div class="note">No simulation run for slot ${S.slot} yet.</div>`; return; }
+  h += `<div class="card"><h2>Average category rank across ${R.n} simulated drafts <span class="sub">1 is best of ${S.teams}</span></h2><div class="prow">${CATS.map(([c, l]) => { const v = R.cats[c] / R.n; return `<span class="chip" style="border-color:${v <= 4.5 ? "var(--me)" : v >= 8 ? "var(--red)" : "var(--line)"}">${l} <b>${v.toFixed(1)}</b></span>`; }).join("")}</div></div>`;
+  h += `<div class="pgrid" style="grid-template-columns:1fr 1fr">` + Object.entries(R.rounds).map(([r, x]) => {
+    const rows = Object.entries(x.top).sort((a, b) => b[1] - a[1]).slice(0, 6);
+    return `<div class="card"><h2>Round ${r} <b>pick ${x.pick}</b></h2><table class="mini"><thead><tr><th class="l">Player</th><th>ADP</th><th>GP</th><th title="Share of drafts where he was one of your five best options at this pick">In your top 5</th><th title="Share of drafts where he was the single best pick">Best pick</th></tr></thead><tbody>
+      ${rows.map(([id, c]) => { const p = byId[id]; return `<tr><td class="l"><span class="pname" data-open="${esc(id)}">${esc(p.name)}</span><span class="sub">${p.pos.join("/")}</span>${flagHtml(p)}${tagHtml(p)}</td><td class="num">${p.yahoo_adp ?? "-"}</td><td class="num">${p.gp}</td><td class="num">${Math.round(100 * c / R.n)}%</td><td class="num">${Math.round(100 * (x.took[id] || 0) / R.n)}%</td></tr>`; }).join("")}</tbody></table></div>`; }).join("") + `</div>`;
+  el.innerHTML = h;
+}
+
+document.addEventListener("click", e => {
+  const t = e.target;
+  if (t.dataset.draft) draft(t.dataset.draft);
+  else if (t.dataset.open) openDrawer(t.dataset.open);
+  else if (t.id === "closeDrawer") $("drawer").style.display = "none";
+  else if (t.dataset.view) { S.view = t.dataset.view; save(); render(); }
+  else if (t.dataset.slotrun) { t.textContent = "Simulating..."; setTimeout(() => { runSlotSims(+t.dataset.slotrun); render(); }, 30); }
+  else if (t.dataset.scout) { S.scout = t.dataset.scout; save(); render(); }
+  else if (t.dataset.plann) { S.plan.n = +t.dataset.plann; S.plan.cats = null; save(); render(); }
+  else if (t.dataset.planauto) { S.plan.cats = null; save(); render(); }
+  else if (t.dataset.planclear) { S.plan.anchor = ""; S.plan.cats = null; save(); render(); }
+  else if (t.dataset.plancat) { const c = t.dataset.plancat, cur = S.plan.cats || autoCats(planCore().core, S.plan.n); S.plan.cats = cur.includes(c) ? cur.filter(x => x !== c) : [...cur, c]; save(); render(); }
+  else if (t.dataset.planapply) { const cur = S.plan.cats || autoCats(planCore().core, S.plan.n); S.punts = CATS.map(c => c[0]).filter(c => !cur.includes(c)); S.view = "board"; save(); render(); }
+  else if (t.dataset.pos) { S.pos = t.dataset.pos; save(); render(); }
+  else if (t.dataset.punt) { const k = t.dataset.punt; if (S.fmt === 8 && k === "tov") return; S.punts = S.punts.includes(k) ? S.punts.filter(x => x !== k) : [...S.punts, k]; save(); render(); }
+  else if (t.dataset.sort) { const k = t.dataset.sort; if (S.sort === k) S.dir *= -1; else { S.sort = k; S.dir = ["name","yahoo_adp","yahoo_rank","rank"].includes(k) ? 1 : -1; } save(); render(); }
+});
+$("q").addEventListener("input", render);
+document.addEventListener("change", e => { if (e.target.id === "planAnchor") { const v = e.target.value.trim().toLowerCase(), p = P.find(x => x.name.toLowerCase() === v) || (v && P.find(x => x.name.toLowerCase().includes(v))); S.plan.anchor = p ? p.id : ""; S.plan.cats = null; save(); render(); } });
+$("hideTaken").addEventListener("change", e => { S.hideTaken = e.target.checked; save(); render(); });
+$("hideRisk").addEventListener("change", e => { S.hideRisk = e.target.checked; save(); render(); });
+$("cfgFmt").addEventListener("change", e => { S.fmt = +e.target.value; S.punts = S.punts.filter(c => !(S.fmt === 8 && c === "tov")); S.plan.cats = null; _avgCache.k = null; save(); render(); });
+[["Teams","teams"],["Slot","slot"],["Rounds","rounds"]].forEach(([i, k]) => $("cfg" + i).addEventListener("change", e => { const v = parseInt(e.target.value, 10); if (v > 0) { if (S.picks.length && k !== "slot" && !confirmReset()) return render(); S[k] = v; if (S.slot > S.teams) S.slot = S.teams; save(); render(); } }));
+function confirmReset() { if (!window.confirm("Changing this clears the picks made so far. Continue?")) return false; S.picks = []; return true; }
+$("undoBtn").onclick = () => { S.picks.pop(); save(); render(); };
+$("resetBtn").onclick = () => { if (window.confirm("Clear every pick and start over?")) { S.picks = []; save(); render(); } };
+$("simBtn").onclick = simToMe;
+document.addEventListener("keydown", e => { if (e.key === "Escape") $("drawer").style.display = "none"; if (e.key === "/" && document.activeElement !== $("q")) { e.preventDefault(); $("q").focus(); } });
+
+// optional deep link, e.g. index.html#view=planner&anchor=anthony edwards
+new URLSearchParams(location.hash.slice(1)).forEach((v, k) => { if (k === "view") S.view = v; if (k === "anchor" && byId[v]) { S.plan.anchor = v; S.plan.cats = null; } if (k === "n") S.plan.n = +v; if (k === "scout") S.scout = v; if (k === "slot") S.slot = +v; if (k in TUNE) TUNE[k] = +v; if (k === "simrun") setTimeout(() => { runSlotSims(+v); render(); }, 50); });
+$("plan").innerHTML = (window.PLAN || []).map(x => `<li>${x}</li>`).join("");
+$("meta").innerHTML = `${D.meta.n} players. Built ${D.meta.built}. Projections: average of ESPN and Yahoo (Rotowire) 2026-27, plus Hashtag Basketball for the top 30. ADP and positions: Yahoo via Hashtag Basketball. ${D.meta.injuries} researched injury entries.` + (D.meta.sources.length ? "<br>Articles read: " + D.meta.sources.map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.site || s.title)}</a>`).join(", ") : "");
+render();
+</script>
+</body>
+</html>
