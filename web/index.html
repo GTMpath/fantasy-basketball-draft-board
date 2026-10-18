@@ -497,7 +497,7 @@ function renderMyPlan() {
   if (!M) { el.innerHTML = '<div class="note">No plan loaded. It lives in web/plan.js.</div>'; return; }
   const taken = takenSet(), mine = roster(S.slot), byNm = Object.fromEntries(P.map(p => [p.name, p]));
   const myPicks = S.picks.map((x, i) => [x, i]).filter(([x]) => x.team === S.slot);
-  let h = `<div class="prow"><b>My plan, rounds 1 to 5</b><span class="note">Each round shows the list for your roster so far (how many centers you have). Crossed out = drafted. The highlighted name is the first one still there. When two are close, check Fit on the Draft board.</span></div>`;
+  let h = `<div class="prow"><b>My plan, all 13 rounds</b><span class="note">Each round shows the list for your roster so far (how many centers you have). Crossed out = drafted. The highlighted name is the first one still there. When two are close, check Fit on the Draft board.</span></div>`;
   M.forEach(R => {
     const got = myPicks[R.round - 1];
     // centers on the roster before this round's pick
@@ -513,7 +513,7 @@ function renderMyPlan() {
     const pickTxt = got ? `you took <b>${esc(byId[got[0].id].name)}</b>` + (list.some(([nm]) => nm === byId[got[0].id].name) ? "" : " (off the list)") : "";
     h += `<div class="card"><h2>Round ${R.round} <b>pick ${R.pick}</b> <span class="sub">${label}${pickTxt ? " · " + pickTxt : ""}</span></h2><table class="mini"><thead><tr><th class="l">In order</th><th>ADP</th><th>Fit now</th><th class="l">Why</th></tr></thead><tbody>${rows}</tbody></table></div>`;
   });
-  h += `<div class="card"><h2>After round 5</h2><div class="note">${esc(window.MYPLAN_LATER || "")}</div></div>`;
+  h += `<div class="card"><h2>Rules for every round</h2><div class="note">${esc(window.MYPLAN_LATER || "")}</div></div>`;
   el.innerHTML = h;
 }
 function renderSlot() {
