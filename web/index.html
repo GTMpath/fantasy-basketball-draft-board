@@ -122,7 +122,8 @@ a{color:var(--blue)}
 </header>
 <main>
   <div id="left">
-    <div id="tabs"><button data-view="board">Draft board</button><button data-view="planner">Build planner</button><button data-view="scout">Sleepers and rookies</button><button data-view="slot">Slot plan</button></div>
+    <div id="tabs"><button data-view="myplan">My plan</button><button data-view="board">Draft board</button><button data-view="planner">Build planner</button><button data-view="scout">Sleepers and rookies</button><button data-view="slot">Slot plan</button></div>
+    <div id="myplan" style="flex:1;overflow:auto;padding:14px 18px;display:none"></div>
     <div id="planner"></div>
     <div id="scout"></div>
     <div id="slotplan" style="flex:1;overflow:auto;padding:14px 18px;display:none"></div>
@@ -278,6 +279,8 @@ function render() {
   if (S.view === "scout") renderScout();
   $("slotplan").style.display = S.view === "slot" ? "block" : "none";
   if (S.view === "slot") renderSlot();
+  $("myplan").style.display = S.view === "myplan" ? "block" : "none";
+  if (S.view === "myplan") renderMyPlan();
   const taken = takenSet(), mine = new Set(roster(S.slot).map(p => p.id));
   const n = S.picks.length, t = onClock(), next = myNext(n), after = next === null ? null : myNext(next + 1);
   // clock
@@ -486,6 +489,32 @@ function runSlotSims(n) {
     CATS.forEach(([c]) => res.cats[c] += Object.values(lines).filter(x => x[c] > lines[S.slot][c]).length + 1);
   }
   S.picks = keep; SLOTRES = res;
+}
+// ---------- My plan: preference lists for rounds 1 to 5 that follow your roster ----------
+const isBig = p => p.pos.includes("C") && !p.pos.includes("SF") && !p.pos.includes("SG");
+function renderMyPlan() {
+  const el = $("myplan"), M = window.MYPLAN;
+  if (!M) { el.innerHTML = '<div class="note">No plan loaded. It lives in web/plan.js.</div>'; return; }
+  const taken = takenSet(), mine = roster(S.slot), byNm = Object.fromEntries(P.map(p => [p.name, p]));
+  const myPicks = S.picks.map((x, i) => [x, i]).filter(([x]) => x.team === S.slot);
+  let h = `<div class="prow"><b>My plan, rounds 1 to 5</b><span class="note">Each round shows the list for your roster so far (how many centers you have). Crossed out = drafted. The highlighted name is the first one still there. When two are close, check Fit on the Draft board.</span></div>`;
+  M.forEach(R => {
+    const got = myPicks[R.round - 1];
+    // centers on the roster before this round's pick
+    const before = myPicks.slice(0, R.round - 1).map(([x]) => byId[x.id]), bigs = Math.min(2, before.filter(isBig).length);
+    const list = R.lists.any || R.lists[bigs] || [];
+    let first = true;
+    const rows = list.map(([nm, why]) => {
+      const p = byNm[nm], gone = !p || taken.has(p.id), you = got && p && got[0].id === p.id;
+      const hl = !got && !gone && first; if (hl) first = false;
+      return `<tr style="${hl ? "background:rgba(76,195,138,.18)" : ""}"><td class="l" style="${gone && !you ? "text-decoration:line-through;opacity:.45" : ""}">${hl ? "<b>&#9654; </b>" : ""}${p ? `<span class="pname" data-open="${esc(p.id)}">${esc(nm)}</span>` : esc(nm)}${p ? flagHtml(p) : ""}${you ? ' <span class="tag sleeper">you took him</span>' : ""}</td><td class="num">${p?.yahoo_adp ?? "-"}</td><td class="num">${p && !gone ? fit(p).toFixed(1) : ""}</td><td class="l sub">${esc(why)}</td></tr>`;
+    }).join("");
+    const label = R.lists.any ? "" : ` · you have ${bigs === 2 ? "2+" : bigs} center${bigs === 1 ? "" : "s"}`;
+    const pickTxt = got ? `you took <b>${esc(byId[got[0].id].name)}</b>` + (list.some(([nm]) => nm === byId[got[0].id].name) ? "" : " (off the list)") : "";
+    h += `<div class="card"><h2>Round ${R.round} <b>pick ${R.pick}</b> <span class="sub">${label}${pickTxt ? " · " + pickTxt : ""}</span></h2><table class="mini"><thead><tr><th class="l">In order</th><th>ADP</th><th>Fit now</th><th class="l">Why</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+  });
+  h += `<div class="card"><h2>After round 5</h2><div class="note">${esc(window.MYPLAN_LATER || "")}</div></div>`;
+  el.innerHTML = h;
 }
 function renderSlot() {
   const el = $("slotplan"), R = SLOTRES && SLOTRES.slot === S.slot ? SLOTRES : null;
