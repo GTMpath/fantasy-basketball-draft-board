@@ -36,6 +36,14 @@ td{padding:5px 7px;border-bottom:1px solid #1d232c;text-align:right;white-space:
 tr.taken{opacity:.33}
 tr.mine td{background:rgba(76,195,138,.12)}
 tr:hover td{background:var(--panel)}
+/* player name stays on screen on the left and the Draft/Taken button on the right while the stat columns scroll sideways */
+td.stk,td.stkr{position:sticky;background:var(--bg);z-index:1}
+td.stk{left:0;box-shadow:1px 0 0 var(--line)}
+td.stkr{right:0;box-shadow:-1px 0 0 var(--line)}
+th.stk{left:0;z-index:3}
+th.stkr{right:0;z-index:3}
+tr.mine td.stk,tr.mine td.stkr{background:#173326}
+tr:hover td.stk,tr:hover td.stkr{background:var(--panel)}
 .pname{font-weight:600;cursor:pointer}
 .pname:hover{text-decoration:underline}
 .sub{color:var(--mute);font-size:11px;margin-left:5px}
@@ -281,8 +289,8 @@ function render() {
   }
   // header
   const cols = [["rank","#"],["name","Player","l"],["yahoo_adp","ADP"],["yahoo_rank","Y rank"],["fit","Fit"],["value","Value/game"],["age","Age"],["last_gp","GP 25-26"],["gp","Proj GP"],["po","PO"]];
-  $("thead").innerHTML = "<tr>" + cols.map(([k, l, a]) => `<th class="${a || ""} ${S.sort === k ? "sorted" : ""}" data-sort="${k}" title="${COLTIP[k] || ""}">${l}</th>`).join("") +
-    CATS.map(([k, l]) => `<th class="${isOff(k) ? "punt" : ""}" data-punt="${k}" title="Click to punt ${l}">${l}</th>`).join("") + "<th></th></tr>";
+  $("thead").innerHTML = "<tr>" + cols.map(([k, l, a]) => `<th class="${a || ""} ${k === "name" ? "stk" : ""} ${S.sort === k ? "sorted" : ""}" data-sort="${k}" title="${COLTIP[k] || ""}">${l}</th>`).join("") +
+    CATS.map(([k, l]) => `<th class="${isOff(k) ? "punt" : ""}" data-punt="${k}" title="Click to punt ${l}">${l}</th>`).join("") + '<th class="stkr"></th></tr>';
   // rows
   const q = $("q").value.trim().toLowerCase();
   let rows = P.filter(p => (!S.hideTaken || !taken.has(p.id)) && (S.pos === "All" || p.pos.includes(S.pos)) && (!S.hideRisk || !["red","orange"].includes(p.flag)) && (!q || (p.name + " " + p.team).toLowerCase().includes(q)));
@@ -292,10 +300,10 @@ function render() {
   const vr = Object.fromEntries([...P].sort((a, b) => value(b) - value(a)).map((p, i) => [p.id, i + 1]));
   $("tbody").innerHTML = rows.slice(0, 260).map(p => `<tr class="${mine.has(p.id) ? "mine" : taken.has(p.id) ? "taken" : ""}">
     <td class="num">${vr[p.id]}</td>
-    <td class="l"><span class="pname" data-open="${esc(p.id)}">${esc(p.name)}</span><span class="sub">${p.team} · ${p.pos.join("/")}</span>${flagHtml(p)}${tagHtml(p)}</td>
+    <td class="l stk"><span class="pname" data-open="${esc(p.id)}">${esc(p.name)}</span><span class="sub">${p.team} · ${p.pos.join("/")}</span>${flagHtml(p)}${tagHtml(p)}</td>
     <td class="num">${p.yahoo_adp ?? "-"}</td><td class="num" title="Yahoo pre-season rank, the default order in your draft room">${p.yahoo_rank ?? "-"}</td><td class="num">${p._f.toFixed(1)}</td><td class="num">${p._v.toFixed(1)}</td><td class="num ${p.age >= 32 ? "bad" : p.age && p.age <= 23 ? "good" : ""}" title="Age adjustment to Fit: ${p.age_adj >= 0 ? "+" : ""}${p.age_adj}">${p.age ?? "-"}</td><td class="num ${p.last_gp !== null && p.last_gp < 55 ? "bad" : ""}" title="Games played in 2025-26">${p.last_gp ?? "-"}</td><td class="num ${p.gp < 60 ? "bad" : ""}" title="Projected games this season">${p.gp}</td><td class="num ${p.po >= 12 ? "good" : p.po <= 9 ? "bad" : ""}" title="${p.po ? "Games in playoff weeks 19, 20, 21: " + p.po_weeks.join(", ") + ". Second nights of back-to-backs: " + p.po_b2b : ""}">${p.po ?? "-"}</td>
     ${CATS.map(([k]) => `<td class="num ${cls(p.z[k])} ${isOff(k) ? "puntcell" : ""}" title="z ${p.z[k]}">${fmt[k](p)}</td>`).join("")}
-    <td>${taken.has(p.id) ? "" : `<button data-draft="${esc(p.id)}" class="${t === S.slot ? "primary" : ""}">${t === S.slot ? "Draft" : "Taken"}</button>`}</td></tr>`).join("");
+    <td class="stkr">${taken.has(p.id) ? "" : `<button data-draft="${esc(p.id)}" class="${t === S.slot ? "primary" : ""}">${t === S.slot ? "Draft" : "Taken"}</button>`}</td></tr>`).join("");
   renderRecs(taken, n, next, after); renderRoster(); renderCats(); renderLog();
   $("posChips").innerHTML = ["All","PG","SG","SF","PF","C"].map(x => `<button class="chip ${S.pos === x ? "on" : ""}" data-pos="${x}">${x}</button>`).join(" ");
   ["Teams","Slot","Rounds"].forEach(k => $("cfg" + k).value = S[k.toLowerCase()]);
