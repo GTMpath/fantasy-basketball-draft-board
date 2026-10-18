@@ -77,6 +77,15 @@ a{color:var(--blue)}
 #tabs button{border:0;border-bottom:2px solid transparent;border-radius:0;background:transparent;padding:8px 16px;color:var(--mute);font-weight:600}
 #tabs button.on{color:var(--text);border-bottom-color:var(--accent)}
 #planner,#scout{flex:1;overflow:auto;padding:14px 18px;display:none}
+/* phones and narrow windows: let the page scroll as one column instead of fixed-height panes */
+@media (max-width:900px){
+  body{height:auto;overflow:auto}
+  main{display:block}
+  #left{border-right:0}
+  #tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  #right{overflow:visible;border-top:1px solid var(--line)}
+  #drawer{right:0;left:0;width:auto}
+}
 .prow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px}
 .pgrid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(300px,1fr);gap:22px;align-items:start}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:12px 14px;margin-bottom:14px}
