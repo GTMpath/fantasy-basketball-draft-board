@@ -211,6 +211,16 @@ def main():
                 mock_picks.setdefault(norm(pk["name"]), []).append(pk["pick"])
     pairings = [dict(p, anchor_id=norm(p["anchor"]), partner_ids=[norm(x) for x in p.get("partners", [])]) for p in gather("pairings") if p.get("anchor")]
 
+    # Projected minutes 3+ above a healthy (50+ game) 2025-26: in 2024-25 and 2025-26 those players fell 0.57 z/game further
+    # short of ESPN's projection than everyone else (n=30, se 0.37). Fit applies about half of that. Starters confirmed by
+    # their coach in the Oct 18 sweep are exempt, since the bump is news rather than an assumption.
+    CONFIRMED = {norm(n) for n in ("Dylan Harper", "Isaiah Jackson")}
+    def role_bump(name, mpg, hist):
+        last = next((h for h in hist if h["season"] == "2025-26"), None)
+        if not last or last["gp"] < 50 or not mpg or norm(name) in CONFIRMED: return None
+        d = round(mpg - last["mpg"], 1)
+        return d if d >= 3 else None
+
     players = []
     for key, e in espn.items():
         a = adp.get(key, {})
@@ -301,6 +311,7 @@ def main():
             peak=bool(age and age >= 29 and (jumps.get(key) or 0) >= 1.5),
             jump_pen=(jumpd.get(key) or {}).get("jump_pen"), jump_kind=(jumpd.get(key) or {}).get("jump_kind"),
             z3=(jumpd.get(key) or {}).get("z3"), z_proj=(jumpd.get(key) or {}).get("z_proj"), z_exp=(jumpd.get(key) or {}).get("z_exp"), last_gp=next((h["gp"] for h in hist if h["season"] == "2025-26"), None),
+            min_bump=role_bump(e.get("name") or key, p.get("mpg"), hist),
             po=sched.get(e["team"], {}).get("games"), po_weeks=sched.get(e["team"], {}).get("weeks"), po_b2b=sched.get(e["team"], {}).get("b2b"),
             season_b2b=sched.get(e["team"], {}).get("season_b2b"),
             mock=(round(statistics.mean(mock_picks[key]), 1) if key in mock_picks else None), mock_n=len(mock_picks.get(key, []))))

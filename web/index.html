@@ -204,7 +204,8 @@ function fit(p) {
   if (p.flag === "orange") v -= (slid ? .3 : .8) + 1.2 * risky + (round <= 3 ? 1 : 0);
   if (p.flag === "yellow") v -= .2;
   v += p.age_adj || 0;  // aging curve: young players gain, players past 29 lose
-  v -= p.jump_pen || 0;  // older jump season: only the part the projection keeps beyond what history supports (scripts/jump_check.py)
+  v -= p.jump_pen || 0;
+  if (p.min_bump) v -= .3;  // projected minutes 3+ above a healthy last season tend not to arrive (scripts/build.py role_bump)  // older jump season: only the part the projection keeps beyond what history supports (scripts/jump_check.py)
   if (p.po) v += .12 * (p.po - 10.6);  // games in the league's three playoff weeks (range 9 to 12)
   const open = openStarters().filter(s => s !== "Util"), left = S.rounds - n;
   if (round >= 5 && open.includes("C") && p.pos.includes("C")) v += .4;
@@ -241,7 +242,8 @@ const clip = (t, n) => t.length > n ? t.slice(0, n).replace(/\s+\S*$/, "") + "..
 // a badge needs three separate sources behind it, otherwise half the board is a "sleeper"
 const z3Txt = p => p.z3 ? `per-game value ${p.z3.map(x => x == null ? "n/a" : x).join(" / ")} over the last three seasons, projected ${p.z_proj}, history-based expectation ${p.z_exp}` : "";
 const peakHtml = p => p.peak && p.jump_kind ? `<span class="tag bust" title="Age ${p.age}, ${p.jump_kind}: ${z3Txt(p)}. Fit penalty ${p.jump_pen}.">${p.jump_kind === "career yr" ? "career yr" : p.jump_kind === "bounce-back" ? "bounce-back" : "injury rebound"}${p.jump_pen >= .2 ? " −" + p.jump_pen : ""}</span>` : "";
-const tagHtml = p => peakHtml(p) + ["sleeper", "breakout", "bust", "rookie"].filter(k => tagCount(p, k) >= (k === "rookie" ? 1 : 3)).map(k => `<span class="tag ${k}" title="${k === "rookie" ? "2026 rookie" : tagCount(p, k) + " sources"}">${k}${k === "rookie" ? "" : " " + tagCount(p, k)}</span>`).join("");
+const bumpHtml = p => p.min_bump ? `<span class="tag bust" title="Projected for ${p.min_bump} more minutes than his 50+ game 2025-26. In the last two seasons, unconfirmed bumps like this fell short of projection more often. Fit −0.3.">+${p.min_bump} min?</span>` : "";
+const tagHtml = p => peakHtml(p) + bumpHtml(p) + ["sleeper", "breakout", "bust", "rookie"].filter(k => tagCount(p, k) >= (k === "rookie" ? 1 : 3)).map(k => `<span class="tag ${k}" title="${k === "rookie" ? "2026 rookie" : tagCount(p, k) + " sources"}">${k}${k === "rookie" ? "" : " " + tagCount(p, k)}</span>`).join("");
 
 function render() {
   document.querySelectorAll("#tabs button").forEach(b => b.classList.toggle("on", b.dataset.view === S.view));

@@ -65,6 +65,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 65,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -166,6 +167,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 64,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -264,6 +266,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 68,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -374,6 +377,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 64,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -530,6 +534,7 @@
   "z_proj": 6.9,
   "z_exp": 6.7,
   "last_gp": 65,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -691,6 +696,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 20,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -810,6 +816,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 70,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -932,6 +939,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": null,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -1036,6 +1044,7 @@
   "z_proj": 5.1,
   "z_exp": 4.7,
   "last_gp": 70,
+  "min_bump": null,
   "po": 9,
   "po_weeks": [
    4,
@@ -1152,6 +1161,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 16,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -1279,6 +1289,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 72,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -1400,6 +1411,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 43,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -1514,6 +1526,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 75,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -1638,6 +1651,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 61,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    4,
@@ -1755,6 +1769,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 75,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -1896,6 +1911,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 70,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -2051,6 +2067,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 51,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -2173,6 +2190,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 66,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -2305,6 +2323,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": null,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -2406,6 +2425,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 64,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -2537,6 +2557,7 @@
   "z_proj": 3.9,
   "z_exp": 3.1,
   "last_gp": 42,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -2676,6 +2697,7 @@
   "z_proj": 4.3,
   "z_exp": 3.2,
   "last_gp": 38,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -2789,6 +2811,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 78,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -2938,6 +2961,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 72,
+  "min_bump": 4.9,
   "po": 10,
   "po_weeks": [
    4,
@@ -3055,6 +3079,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 80,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -3178,6 +3203,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 69,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -3349,6 +3375,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 5,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -3488,6 +3515,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 70,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -3661,6 +3689,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 15,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -3780,6 +3809,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 79,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -3932,6 +3962,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 19,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -4057,6 +4088,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 33,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -4185,6 +4217,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 76,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -4293,6 +4326,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 65,
+  "min_bump": null,
   "po": 9,
   "po_weeks": [
    4,
@@ -4395,6 +4429,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 52,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -4549,6 +4584,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 77,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -4709,6 +4745,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 33,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -4818,6 +4855,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 34,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -4942,6 +4980,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 70,
+  "min_bump": null,
   "po": 9,
   "po_weeks": [
    4,
@@ -5049,6 +5088,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 82,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -5182,6 +5222,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 48,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -5316,6 +5357,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 1,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -5452,6 +5494,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 36,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    4,
@@ -5559,6 +5602,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 64,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -5671,6 +5715,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 74,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -5799,6 +5844,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 73,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    4,
@@ -5940,6 +5986,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 37,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -6074,6 +6121,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 11,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -6250,6 +6298,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 77,
+  "min_bump": 4.4,
   "po": 10,
   "po_weeks": [
    3,
@@ -6407,6 +6456,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 65,
+  "min_bump": 3.7,
   "po": 11,
   "po_weeks": [
    4,
@@ -6535,6 +6585,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 67,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -6651,6 +6702,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 38,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -6764,6 +6816,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 74,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -6887,6 +6940,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 77,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -7006,6 +7060,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 54,
+  "min_bump": 3.4,
   "po": 10,
   "po_weeks": [
    3,
@@ -7140,6 +7195,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 32,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -7292,6 +7348,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 45,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -7415,6 +7472,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 78,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -7515,6 +7573,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 56,
+  "min_bump": 3.1,
   "po": 9,
   "po_weeks": [
    4,
@@ -7644,6 +7703,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 81,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -7785,6 +7845,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 75,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -7950,6 +8011,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 77,
+  "min_bump": 5.6,
   "po": 11,
   "po_weeks": [
    4,
@@ -8063,6 +8125,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 48,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -8200,6 +8263,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 15,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -8323,6 +8387,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 72,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -8471,6 +8536,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 60,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -8610,6 +8676,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 14,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -8723,6 +8790,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 62,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -8871,6 +8939,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 77,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -8971,6 +9040,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 60,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -9099,6 +9169,7 @@
   "z_proj": 0.9,
   "z_exp": 0.9,
   "last_gp": 82,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -9241,6 +9312,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 73,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    4,
@@ -9396,6 +9468,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 74,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -9515,6 +9588,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 82,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -9649,6 +9723,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 48,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -9774,6 +9849,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 70,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -9908,6 +9984,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 79,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -10038,6 +10115,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 72,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -10197,6 +10275,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 73,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -10321,6 +10400,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 58,
+  "min_bump": 4.2,
   "po": 10,
   "po_weeks": [
    3,
@@ -10466,6 +10546,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 69,
+  "min_bump": 3.5,
   "po": 11,
   "po_weeks": [
    4,
@@ -10600,6 +10681,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 66,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -10714,6 +10796,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 38,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -10853,6 +10936,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": null,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -10993,6 +11077,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 57,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -11113,6 +11198,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": null,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -11257,6 +11343,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 23,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -11387,6 +11474,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 68,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    4,
@@ -11534,6 +11622,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 77,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -11684,6 +11773,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 62,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -11806,6 +11896,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 66,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -11924,6 +12015,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 54,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -12038,6 +12130,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 76,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    4,
@@ -12197,6 +12290,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 77,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -12348,6 +12442,7 @@
   "z_proj": 0.3,
   "z_exp": 0.3,
   "last_gp": 71,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -12467,6 +12562,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 62,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -12592,6 +12688,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 77,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -12733,6 +12830,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 69,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    4,
@@ -12875,6 +12973,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 69,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -13004,6 +13103,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 80,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -13146,6 +13246,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": null,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -13281,6 +13382,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 71,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -13396,6 +13498,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 76,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -13536,6 +13639,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 81,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -13656,6 +13760,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 47,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -13757,6 +13862,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 59,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -13906,6 +14012,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 82,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -14023,6 +14130,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 10,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -14186,6 +14294,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 62,
+  "min_bump": 3.3,
   "po": 10,
   "po_weeks": [
    3,
@@ -14294,6 +14403,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 63,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -14408,6 +14518,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 77,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -14509,6 +14620,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 7,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -14659,6 +14771,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 50,
+  "min_bump": 8.5,
   "po": 11,
   "po_weeks": [
    4,
@@ -14770,6 +14883,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 55,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -14907,6 +15021,7 @@
   "z_proj": -0.8,
   "z_exp": -0.9,
   "last_gp": 51,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -15005,6 +15120,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 82,
+  "min_bump": 4.0,
   "po": 10,
   "po_weeks": [
    3,
@@ -15154,6 +15270,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 57,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -15278,6 +15395,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 60,
+  "min_bump": 5.8,
   "po": 11,
   "po_weeks": [
    4,
@@ -15408,6 +15526,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 79,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -15510,6 +15629,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 60,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -15638,6 +15758,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 52,
+  "min_bump": 7.2,
   "po": 10,
   "po_weeks": [
    3,
@@ -15766,6 +15887,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 54,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -15904,6 +16026,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 75,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -16011,6 +16134,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 72,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -16133,6 +16257,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": null,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -16234,6 +16359,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 45,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -16368,6 +16494,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 68,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -16492,6 +16619,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 54,
+  "min_bump": null,
   "po": 9,
   "po_weeks": [
    4,
@@ -16597,6 +16725,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 48,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -16708,6 +16837,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 76,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -16829,6 +16959,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 72,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -16991,6 +17122,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 57,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -17163,6 +17295,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 46,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -17262,6 +17395,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 30,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -17403,6 +17537,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 69,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -17501,6 +17636,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 67,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -17601,6 +17737,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 56,
+  "min_bump": 6.1,
   "po": 11,
   "po_weeks": [
    4,
@@ -17733,6 +17870,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 39,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -17867,6 +18005,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 46,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -17997,6 +18136,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 65,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -18145,6 +18285,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 72,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -18253,6 +18394,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 53,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -18370,6 +18512,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 44,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -18478,6 +18621,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 36,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -18601,6 +18745,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 75,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -18739,6 +18884,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 64,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -18854,6 +19000,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 68,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -18954,6 +19101,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 56,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -19061,6 +19209,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 82,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -19164,6 +19313,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 45,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -19273,6 +19423,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 58,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -19373,6 +19524,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 67,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    4,
@@ -19528,6 +19680,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": null,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -19665,6 +19818,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": null,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -19799,6 +19953,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 77,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -19925,6 +20080,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 72,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -20032,6 +20188,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 82,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -20117,6 +20274,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 66,
+  "min_bump": null,
   "po": 9,
   "po_weeks": [
    4,
@@ -20270,6 +20428,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 20,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -20369,6 +20528,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 30,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -20462,6 +20622,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 69,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -20590,6 +20751,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 32,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -20729,6 +20891,7 @@
   "z_proj": -1.8,
   "z_exp": -3.3,
   "last_gp": 41,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -20830,6 +20993,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 56,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -20936,6 +21100,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 49,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -21042,6 +21207,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 75,
+  "min_bump": 4.4,
   "po": 11,
   "po_weeks": [
    4,
@@ -21164,6 +21330,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 70,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    4,
@@ -21271,6 +21438,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 57,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -21387,6 +21555,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": null,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -21488,6 +21657,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 66,
+  "min_bump": 5.5,
   "po": 11,
   "po_weeks": [
    4,
@@ -21600,6 +21770,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 65,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -21710,6 +21881,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 57,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -21811,6 +21983,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 68,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -21901,6 +22074,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 65,
+  "min_bump": 4.3,
   "po": 10,
   "po_weeks": [
    3,
@@ -21998,6 +22172,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 74,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -22117,6 +22292,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 82,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -22217,6 +22393,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 62,
+  "min_bump": 4.2,
   "po": 11,
   "po_weeks": [
    4,
@@ -22316,6 +22493,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 69,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -22418,6 +22596,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 77,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -22507,6 +22686,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 78,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -22607,6 +22787,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 50,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -22722,6 +22903,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 64,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -22822,6 +23004,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 56,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -22915,6 +23098,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 6,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -23015,6 +23199,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 43,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -23104,6 +23289,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 71,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -23195,6 +23381,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 72,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -23294,6 +23481,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 78,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -23386,6 +23574,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 56,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -23509,6 +23698,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 68,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -23609,6 +23799,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 82,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -23716,6 +23907,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 73,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -23805,6 +23997,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 50,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -23894,6 +24087,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 24,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -23973,6 +24167,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 57,
+  "min_bump": 3.2,
   "po": 10,
   "po_weeks": [
    3,
@@ -24147,6 +24342,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": null,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -24236,6 +24432,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 72,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -24326,6 +24523,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 69,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -24416,6 +24614,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 78,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -24515,6 +24714,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 56,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -24616,6 +24816,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": null,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -24705,6 +24906,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 68,
+  "min_bump": 3.6,
   "po": 11,
   "po_weeks": [
    4,
@@ -24797,6 +24999,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 41,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -24903,6 +25106,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 73,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -25011,6 +25215,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 53,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -25096,6 +25301,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 69,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -25200,6 +25406,7 @@
   "z_proj": -2.8,
   "z_exp": -3.6,
   "last_gp": 69,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -25291,6 +25498,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 56,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -25390,6 +25598,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 82,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -25479,6 +25688,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 77,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -25578,6 +25788,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 77,
+  "min_bump": 6.5,
   "po": 11,
   "po_weeks": [
    4,
@@ -25686,6 +25897,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 57,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -25778,6 +25990,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 52,
+  "min_bump": null,
   "po": 9,
   "po_weeks": [
    4,
@@ -25894,6 +26107,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 12,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -25998,6 +26212,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 77,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -26089,6 +26304,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 78,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -26199,6 +26415,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": null,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    4,
@@ -26293,6 +26510,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 53,
+  "min_bump": 4.7,
   "po": 10,
   "po_weeks": [
    3,
@@ -26386,6 +26604,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 45,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -26465,6 +26684,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 69,
+  "min_bump": 4.7,
   "po": 12,
   "po_weeks": [
    4,
@@ -26556,6 +26776,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 74,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -26648,6 +26869,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 55,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -26739,6 +26961,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 62,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -26830,6 +27053,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 73,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -26929,6 +27153,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 76,
+  "min_bump": 11.8,
   "po": 11,
   "po_weeks": [
    4,
@@ -27021,6 +27246,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 72,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -27167,6 +27393,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": null,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -27258,6 +27485,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 65,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -27350,6 +27578,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 80,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    4,
@@ -27440,6 +27669,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 63,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -27532,6 +27762,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 55,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -27624,6 +27855,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 67,
+  "min_bump": null,
   "po": 12,
   "po_weeks": [
    4,
@@ -27716,6 +27948,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 51,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -27832,6 +28065,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 55,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -27923,6 +28157,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 65,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -28007,6 +28242,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 70,
+  "min_bump": 3.2,
   "po": 12,
   "po_weeks": [
    4,
@@ -28098,6 +28334,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 60,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -28189,6 +28426,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 82,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -28277,6 +28515,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 60,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -28370,6 +28609,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 72,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -28460,6 +28700,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 75,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -28550,6 +28791,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 68,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -28677,6 +28919,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": null,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -28793,6 +29036,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 82,
+  "min_bump": 5.5,
   "po": 12,
   "po_weeks": [
    4,
@@ -28881,6 +29125,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 69,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -28968,6 +29213,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 75,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -29067,6 +29313,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": null,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -29172,6 +29419,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 54,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -29282,6 +29530,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 67,
+  "min_bump": 7.3,
   "po": 11,
   "po_weeks": [
    4,
@@ -29392,6 +29641,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 68,
+  "min_bump": 3.3,
   "po": 11,
   "po_weeks": [
    4,
@@ -29489,6 +29739,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": null,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -29573,6 +29824,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 77,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -29659,6 +29911,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 35,
+  "min_bump": null,
   "po": null,
   "po_weeks": null,
   "po_b2b": null,
@@ -29762,6 +30015,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 69,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    4,
@@ -29850,6 +30104,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 75,
+  "min_bump": 4.5,
   "po": 10,
   "po_weeks": [
    3,
@@ -29942,6 +30197,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 78,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -30043,6 +30299,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": null,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -30135,6 +30392,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 70,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -30218,6 +30476,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 82,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    3,
@@ -30310,6 +30569,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 39,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -30418,6 +30678,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": null,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -30506,6 +30767,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 44,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -30614,6 +30876,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 74,
+  "min_bump": 7.1,
   "po": 11,
   "po_weeks": [
    4,
@@ -30704,6 +30967,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 37,
+  "min_bump": null,
   "po": null,
   "po_weeks": null,
   "po_b2b": null,
@@ -30784,6 +31048,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 78,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -30862,6 +31127,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 56,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -30952,6 +31218,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 77,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -31044,6 +31311,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 37,
+  "min_bump": null,
   "po": null,
   "po_weeks": null,
   "po_b2b": null,
@@ -31125,6 +31393,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 59,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -31210,6 +31479,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 43,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    4,
@@ -31329,6 +31599,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 36,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    4,
@@ -31421,6 +31692,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 40,
+  "min_bump": null,
   "po": null,
   "po_weeks": null,
   "po_b2b": null,
@@ -31504,6 +31776,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 49,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -31594,6 +31867,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 65,
+  "min_bump": null,
   "po": null,
   "po_weeks": null,
   "po_b2b": null,
@@ -31674,6 +31948,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 82,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -31794,6 +32069,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 40,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    4,
@@ -31881,6 +32157,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": null,
+  "min_bump": null,
   "po": 11,
   "po_weeks": [
    4,
@@ -31972,6 +32249,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 47,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    4,
@@ -32062,6 +32340,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 53,
+  "min_bump": null,
   "po": null,
   "po_weeks": null,
   "po_b2b": null,
@@ -32142,6 +32421,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 42,
+  "min_bump": null,
   "po": 10,
   "po_weeks": [
    3,
@@ -32233,6 +32513,7 @@
   "z_proj": null,
   "z_exp": null,
   "last_gp": 42,
+  "min_bump": null,
   "po": null,
   "po_weeks": null,
   "po_b2b": null,
